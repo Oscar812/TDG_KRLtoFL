@@ -5,8 +5,10 @@ import zlib
 import base64
 #import ejemplo
 from Classes import ClassList
+from Classes import ClassElement as Elementos
 
 import urllib.parse
+
 
 def urlencode(str):
   return urllib.parse.quote(str)
@@ -69,14 +71,14 @@ Ids.clear()
 info = []
 Lista = ClassList.ListaNoOrdenada()
 Nodo = ClassList.Nodo('','','','','','')
-
-
-
-for (ev, el) in ET.iterparse('TRANSFORMACION.xml'):
+file='TRANSFORMACION.xml'
+Element = Elementos.ElementosXML()
+Lista= Element.ObtenerElementos(file, Lista)
+'''
+comentada para pruebas de clase elemento
+for (ev, el) in ET.iterparse(file):
     inner = []
     if el.tag == 'object':
-
-
         for name, value in el.items():
             inner.append([el.tag + '-' + name, str(value).replace('\n', '').replace(' ', '')])
             if (name=='id'):
@@ -111,7 +113,7 @@ for (ev, el) in ET.iterparse('TRANSFORMACION.xml'):
         info.append(inner)
 
 #print(info)
-
+'''
 
 actual = Lista.cabeza
 while actual != None:

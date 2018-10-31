@@ -73,7 +73,9 @@ Lista = ClassList.ListaNoOrdenada()
 Nodo = ClassList.Nodo('','','','','','')
 file='TRANSFORMACION.xml'
 Element = Elementos.ElementosXML()
-Lista= Element.ObtenerElementos(file, Lista)
+Lista= Element.ObtenerElementos(file, Lista )
+Lista= Element.ObtenerHijos(Lista)
+
 '''
 comentada para pruebas de clase elemento
 for (ev, el) in ET.iterparse(file):
@@ -114,7 +116,7 @@ for (ev, el) in ET.iterparse(file):
 
 #print(info)
 '''
-
+'''
 actual = Lista.cabeza
 while actual != None:
     print ("Imprimir lista de nodos")
@@ -126,11 +128,14 @@ while actual != None:
     print ("Relación")
     print(actual.obtenerRelacion())
     print ("Fin Relación")
+    print ("Hijos")
+    print (actual.obtenerHijos)
+    print ("Fin Hijos")
     print ("_______________________________")
 
       #validar(actual.obtenerTipo(), actual.obtenerParent)
     actual=actual.obtenerSiguiente()
-
+'''
 
 
 

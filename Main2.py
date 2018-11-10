@@ -16,6 +16,7 @@ def deflate_and_base64_encode( string_val ):
     zlibbed_str = zlib.compress( string_val )
     compressed_string = zlibbed_str[2:-4]
     return base64.b64encode( compressed_string )
+from Classes import ClassElement as Elements
 
 e = ET.parse('TRANSFORMACION.xml')
 root = e.getroot()
@@ -25,7 +26,11 @@ Rel = []
 Hij =[]
 info = []
 Lista = ClassList.ListaNoOrdenada()
+file= "TRANSFORMACION.xml"
+Elementos = Elements.ElementosXML()
+Lista= Elementos.ObtenerElementos(file,Lista)
 
+'''
 for (ev, el) in ET.iterparse('TRANSFORMACION.xml'):
     inner = []
     if el.tag == 'object':
@@ -76,7 +81,7 @@ while actual != None:
                   encontrado = True
               actual2 = actual2.obtenerSiguiente()
     actual = actual.obtenerSiguiente()
-
+'''
 actual = Lista.cabeza
 while actual != None:
     print ("Imprimir lista de nodos")

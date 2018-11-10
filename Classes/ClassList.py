@@ -92,4 +92,21 @@ class ListaNoOrdenada:
         while actual != None:
             print(actual.obtenerNombre())
             actual=actual.obtenerSiguiente()
+     def imprimir(self):
+         actual = Lista.cabeza
+         while actual != None:
+             print ("Imprimir lista de nodos")
+             print("_______________________________")
+             print(actual.obtenerNombre())
+             print(actual.obtenerTipo())
+             print(actual.obtenerParent())
+             print(actual.obtenerId())
+             print ("Relación")
+             print(actual.obtenerRelacion())
+             print ("Fin Relación")
+             print ("Hijos")
+             print(actual.obtenerHijos())
+             print ("_______________________________")
+             actual = actual.obtenerSiguiente()
+
 

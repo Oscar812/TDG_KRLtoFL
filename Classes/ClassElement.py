@@ -1,6 +1,6 @@
 '''
 Element maintence
-
+by Oscar Arcila and Nicolas Gaviria
 '''
 import xml.etree.ElementTree as ET
 from Classes import ClassList
@@ -63,7 +63,7 @@ class ElementosXML:
 
         return (Lista)
 
-    def ObtenerHijos (self,Lista):
+    def ObtenerHijos (self):
         print("Desde clase")
         actual = Lista.cabeza
         while actual != None:

@@ -34,9 +34,8 @@ Lista = ClassList.ListaNoOrdenada()
 file= "TRANSFORMACION.xml"
 Elementos = Elements.ElementosXML()
 Lista= Elementos.ObtenerElementos(file,Lista)
-
-Lista.imprimir(Lista)
-
+Elementos.AsigConexion(Lista)
+Lista.Imprimir()
 
 
 

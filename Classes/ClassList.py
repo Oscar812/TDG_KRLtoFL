@@ -5,8 +5,13 @@ class Nodo:
         self.Id = Id
         self.Parent = Parent
         self.siguiente = None
+        #self.Source = []
+        #self.
+        #self.Relacion = [self.Source,self.Target]Target = []
         self.Relacion = []
+        #matriz = [range(numero_columnas) for i in range(numero_filas)]
         self.Hijos = []
+        self.Conexion = []
         '''
         NIVEL
         RELACION [SOURCE, TARGET]
@@ -22,7 +27,12 @@ class Nodo:
     def setParent(self, Parent):
         self.Parent = Parent
     def setRelacion(self,Source,Target):
+        #self.Source.append(Source)
+        #self.Target.append(Target)
+        #self.Relacion.extend([self.Source,self.Target])
         self.Relacion.extend([Source,Target])
+    def setConexion(self,Tipo,Conexion):
+        self.Conexion.extend([Tipo,Conexion])
     def setHijos(self,Hijo):
         self.Hijos.append(Hijo)
     def obtenerNombre(self):
@@ -39,6 +49,8 @@ class Nodo:
         return self.Hijos
     def obtenerRelacion(self):
         return self.Relacion
+    def obtenerConexion(self):
+        return self.Conexion
     def asignarDato(self,Nombre,Tipo,Id,Parent,Relacion):
         self.Nombre = Nombre
         self.Tipo = Tipo
@@ -92,20 +104,41 @@ class ListaNoOrdenada:
         while actual != None:
             print(actual.obtenerNombre())
             actual=actual.obtenerSiguiente()
-     def imprimir(self,Lista):
-         actual = Lista.cabeza
+
+     def AgregarConexion(self, IdBus, Tipo, IdConex):
+         actual = self.cabeza
+         encontrado = False
+         #print("Id a buscar: " +IdBus)
+         #print("Tipo que llega: " +Tipo)
+         while not encontrado and actual != None:
+             #print("Id: " +actual.obtenerId())
+             if actual.obtenerId() == IdBus:
+                #print("Lo encontré")
+                actual.setConexion(Tipo,IdConex)
+                encontrado = True
+             actual = actual.obtenerSiguiente()
+
+
+     def Imprimir(self):
+         actual = self.cabeza
          while actual != None:
+             print("Imprimir lista de nodos")
              print("_______________________________")
              print(actual.obtenerNombre())
              print(actual.obtenerTipo())
              print(actual.obtenerParent())
              print(actual.obtenerId())
-             print ("Relación")
+             print("Relación")
              print(actual.obtenerRelacion())
-             print ("Fin Relación")
-             print ("Hijos")
+             print("Fin Relación")
+             print("Hijos")
              print(actual.obtenerHijos())
-             print ("_______________________________")
+             print("_______________________________")
+             print("Conexiones:  ")
+             print(actual.obtenerConexion())
              actual = actual.obtenerSiguiente()
+
+
+
 
 

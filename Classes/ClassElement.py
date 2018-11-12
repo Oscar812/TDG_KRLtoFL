@@ -1,6 +1,6 @@
 '''
 Element maintence
-by Oscar Arcila and Nicolas Gaviria
+
 '''
 import xml.etree.ElementTree as ET
 from Classes import ClassList
@@ -17,7 +17,7 @@ class ElementosXML:
         for (ev, el) in ET.iterparse(file):
             inner = []
             if el.tag == 'object':
-                Nodo = ClassList.Nodo('', '', '', '')
+                Nodo = ClassList.Nodo('', '', '', '','')
                 for name, value in el.items():
                     inner.append([el.tag + '-' + name, str(value).replace('\n', '').replace(' ', '')])
                     if (name == 'id'):
@@ -41,11 +41,12 @@ class ElementosXML:
                             Source = value
                         if name == 'target':
                             Target = value
+                        if name == 'value' and value !="":
+                            Nodo.setTag(value)
                     if Source != "" and Target != "":
                         Nodo.setRelacion(Source, Target)
-                # Nodo.setRelacion(relacion)
                 Lista.agregar(Nodo.obtenerNombre(), Nodo.obtenerTipo(), Nodo.obtenerId(), Nodo.obtenerParent(),
-                              Nodo.obtenerRelacion())
+                              Nodo.obtenerRelacion(),Nodo.obtenerTag())
                 info.append(inner)
 
 
@@ -63,7 +64,7 @@ class ElementosXML:
 
         return (Lista)
 
-    def ObtenerHijos (self):
+    def ObtenerHijos (self,Lista):
         print("Desde clase")
         actual = Lista.cabeza
         while actual != None:
@@ -101,23 +102,32 @@ class ElementosXML:
             Lista.setHijos(List_hijos)
             actual.obtenerSiguiente()
         return (Lista)
-    
-        def AsigConexion(self,Lista):
+
+    def AsigConexion(self,Lista):
         actual = Lista.cabeza
         while actual != None:
             encontrado = False
             if (actual.obtenerRelacion()):
-                print("ID: "+ actual.obtenerId() + " Tiene relacion")
                 Relacion = []
                 Relacion = actual.obtenerRelacion()
                 Filas =  (len(Relacion)/2).is_integer()
-                #matriz = [range(2) for i in range(Filas)]
-
                 for i in range(Filas):
-                    Lista.AgregarConexion(Relacion[i]  , "Source", actual.obtenerId())
-                    Lista.AgregarConexion(Relacion[i+1], "Target", actual.obtenerId())
+                    Lista.AgregarConexion(Relacion[i]  , actual.obtenerNombre(), Relacion[i+1], "Source", actual.obtenerId())
+                    Lista.AgregarConexion(Relacion[i+1], actual.obtenerNombre(), Relacion[i]  , "Target", actual.obtenerId())
                     i+1
             actual = actual.obtenerSiguiente()
+
+    def AsigRegla(self,Lista):
+        actual = Lista.cabeza
+        while actual != None:
+            if (actual.obtenerTipo() == "Regla"):
+                Lista.AgregarRegla(actual.obtenerId())
+            actual = actual.obtenerSiguiente()
+
+
+    #def BuscarPatron(self):
+
+
 
 
 

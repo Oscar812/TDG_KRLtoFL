@@ -1,8 +1,3 @@
-'''
-Main
-by Oscar Arcila and Nicolas Gaviria
-'''
-
 import xml.etree.ElementTree as ET
 from operator import is_not
 from functools import partial
@@ -35,7 +30,12 @@ file= "TRANSFORMACION.xml"
 Elementos = Elements.ElementosXML()
 Lista= Elementos.ObtenerElementos(file,Lista)
 Elementos.AsigConexion(Lista)
+Elementos.AsigRegla(Lista)
 Lista.Imprimir()
+
+
+
+
 
 
 

@@ -1,5 +1,5 @@
 class Nodo:
-    def __init__(self,Nombre,Tipo,Id,Parent):
+    def __init__(self,Nombre,Tipo,Id,Parent,Tag):
         self.Nombre = Nombre
         self.Tipo = Tipo
         self.Id = Id
@@ -12,6 +12,8 @@ class Nodo:
         #matriz = [range(numero_columnas) for i in range(numero_filas)]
         self.Hijos = []
         self.Conexion = []
+        self.Regla = ""
+        self.Tag =Tag
         '''
         NIVEL
         RELACION [SOURCE, TARGET]
@@ -31,16 +33,22 @@ class Nodo:
         #self.Target.append(Target)
         #self.Relacion.extend([self.Source,self.Target])
         self.Relacion.extend([Source,Target])
-    def setConexion(self,Tipo,Conexion):
-        self.Conexion.extend([Tipo,Conexion])
+    def setConexion(self,Tipo,Conexion,MedioCon,TipoRel):
+        self.Conexion.extend([Tipo,Conexion,MedioCon,TipoRel])
     def setHijos(self,Hijo):
         self.Hijos.append(Hijo)
+    def setRegla(self, Regla):
+        self.Regla = Regla
+    def setTag(self, Tag):
+        self.Tag= Tag
     def obtenerNombre(self):
         return self.Nombre
     def obtenerTipo(self):
         return self.Tipo
     def obtenerId(self):
         return self.Id
+    def obtenerRegla(self):
+        return self.Regla
     def obtenerParent(self):
         return self.Parent
     def obtenerSiguiente(self):
@@ -51,12 +59,15 @@ class Nodo:
         return self.Relacion
     def obtenerConexion(self):
         return self.Conexion
-    def asignarDato(self,Nombre,Tipo,Id,Parent,Relacion):
+    def obtenerTag(self):
+        return self.Tag
+    def asignarDato(self,Nombre,Tipo,Id,Parent,Relacion,Tag):
         self.Nombre = Nombre
         self.Tipo = Tipo
         self.Id = Id
         self.Parent = Parent
         self.Relacion = Relacion
+        self.Tag = Tag
     def asignarSiguiente(self,nuevosiguiente):
         self.siguiente = nuevosiguiente
 class ListaNoOrdenada:
@@ -70,9 +81,9 @@ class ListaNoOrdenada:
      def estaVacia(self):
         return self.cabeza == None
 
-     def agregar(self, item1, item2, item3, item4, item5):
-        temp = Nodo(item1, item2, item3, item4)
-        temp.asignarDato(item1, item2, item3, item4, item5)
+     def agregar(self, item1, item2, item3, item4, item5, item6):
+        temp = Nodo(item1, item2, item3, item4, item6)
+        temp.asignarDato(item1, item2, item3, item4, item5, item6)
         temp.asignarSiguiente(self.cabeza)
         self.cabeza = temp
 
@@ -105,19 +116,58 @@ class ListaNoOrdenada:
             print(actual.obtenerNombre())
             actual=actual.obtenerSiguiente()
 
-     def AgregarConexion(self, IdBus, Tipo, IdConex):
+     def Buscar(self, Id):
+        actual = Nodo("","","","")
+        actual = self.cabeza
+        encontrado = False
+        while actual != None and not encontrado:
+            if actual.obtenerId() == Id:
+                encontrado = True
+            actual=actual.obtenerSiguiente()
+        return actual
+
+
+     def AgregarConexion(self, IdBus, TipoRel, IdConex1, TipoCon, IdConex2):
          actual = self.cabeza
          encontrado = False
-         #print("Id a buscar: " +IdBus)
-         #print("Tipo que llega: " +Tipo)
          while not encontrado and actual != None:
              #print("Id: " +actual.obtenerId())
              if actual.obtenerId() == IdBus:
                 #print("Lo encontré")
-                actual.setConexion(Tipo,IdConex)
+                actual.setConexion(TipoRel,IdConex1,IdConex2, TipoCon)
                 encontrado = True
              actual = actual.obtenerSiguiente()
 
+     def AgregarRegla(self, IdRegla):
+         actual = self.cabeza
+         encontrado = False
+         Lista = ListaNoOrdenada()
+         while actual != None:
+             if actual.obtenerConexion():
+                Conexion = []
+                Conexion = actual.obtenerConexion()
+                Filas = (len(Conexion) / 4).is_integer()
+                for i in range(Filas):
+                    if Conexion[i+1] == IdRegla:
+                        #print("Encontré Conexion Regla: " + actual.obtenerId())
+                        Hijos = []
+                        Hijos = actual.obtenerHijos()
+                        #print("hijos: ")
+                        #print(Hijos)
+                        if (Hijos):
+                            for j in range (len(Hijos)):
+                                #print("Hijo: "+Hijos[j])
+                                actual2 = self.cabeza
+                                encontrado = False
+                                while actual2 != None and not encontrado :
+                                    if actual2.obtenerId() == Hijos[j]:
+                                        #print("Encontre Hijo")
+                                        actual2.setRegla(IdRegla)
+                                        #print("Consulte Regla"+actual2.obtenerRegla())
+                                        encontrado = True
+                                    actual2 = actual2.obtenerSiguiente()
+                    i += 3
+             actual = actual.obtenerSiguiente()
 
      def Imprimir(self):
          actual = self.cabeza
@@ -136,9 +186,10 @@ class ListaNoOrdenada:
              print("_______________________________")
              print("Conexiones:  ")
              print(actual.obtenerConexion())
+             print("Regla: ")
+             print(actual.obtenerRegla())
+             print("Tag: ")
+             print(actual.obtenerTag())
              actual = actual.obtenerSiguiente()
-
-
-
 
 

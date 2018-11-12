@@ -1,5 +1,5 @@
 class Nodo:
-    def __init__(self,Nombre,Tipo,Id,Parent,Tag):
+    def __init__(self,Nombre,Tipo,Id,Parent):
         self.Nombre = Nombre
         self.Tipo = Tipo
         self.Id = Id
@@ -13,7 +13,7 @@ class Nodo:
         self.Hijos = []
         self.Conexion = []
         self.Regla = ""
-        self.Tag =Tag
+        self.Tag =""
         '''
         NIVEL
         RELACION [SOURCE, TARGET]
@@ -61,13 +61,12 @@ class Nodo:
         return self.Conexion
     def obtenerTag(self):
         return self.Tag
-    def asignarDato(self,Nombre,Tipo,Id,Parent,Relacion,Tag):
+    def asignarDato(self,Nombre,Tipo,Id,Parent,Relacion):
         self.Nombre = Nombre
         self.Tipo = Tipo
         self.Id = Id
         self.Parent = Parent
         self.Relacion = Relacion
-        self.Tag = Tag
     def asignarSiguiente(self,nuevosiguiente):
         self.siguiente = nuevosiguiente
 class ListaNoOrdenada:
@@ -81,9 +80,9 @@ class ListaNoOrdenada:
      def estaVacia(self):
         return self.cabeza == None
 
-     def agregar(self, item1, item2, item3, item4, item5, item6):
-        temp = Nodo(item1, item2, item3, item4, item6)
-        temp.asignarDato(item1, item2, item3, item4, item5, item6)
+     def agregar(self, item1, item2, item3, item4, item5):
+        temp = Nodo(item1, item2, item3, item4)
+        temp.asignarDato(item1, item2, item3, item4, item5)
         temp.asignarSiguiente(self.cabeza)
         self.cabeza = temp
 

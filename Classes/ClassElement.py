@@ -17,7 +17,7 @@ class ElementosXML:
         for (ev, el) in ET.iterparse(file):
             inner = []
             if el.tag == 'object':
-                Nodo = ClassList.Nodo('', '', '', '','')
+                Nodo = ClassList.Nodo('', '', '', '')
                 for name, value in el.items():
                     inner.append([el.tag + '-' + name, str(value).replace('\n', '').replace(' ', '')])
                     if (name == 'id'):
@@ -46,7 +46,7 @@ class ElementosXML:
                     if Source != "" and Target != "":
                         Nodo.setRelacion(Source, Target)
                 Lista.agregar(Nodo.obtenerNombre(), Nodo.obtenerTipo(), Nodo.obtenerId(), Nodo.obtenerParent(),
-                              Nodo.obtenerRelacion(),Nodo.obtenerTag())
+                              Nodo.obtenerRelacion())
                 info.append(inner)
 
 

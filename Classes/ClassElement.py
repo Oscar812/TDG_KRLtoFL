@@ -101,6 +101,23 @@ class ElementosXML:
             Lista.setHijos(List_hijos)
             actual.obtenerSiguiente()
         return (Lista)
+    
+        def AsigConexion(self,Lista):
+        actual = Lista.cabeza
+        while actual != None:
+            encontrado = False
+            if (actual.obtenerRelacion()):
+                print("ID: "+ actual.obtenerId() + " Tiene relacion")
+                Relacion = []
+                Relacion = actual.obtenerRelacion()
+                Filas =  (len(Relacion)/2).is_integer()
+                #matriz = [range(2) for i in range(Filas)]
+
+                for i in range(Filas):
+                    Lista.AgregarConexion(Relacion[i]  , "Source", actual.obtenerId())
+                    Lista.AgregarConexion(Relacion[i+1], "Target", actual.obtenerId())
+                    i+1
+            actual = actual.obtenerSiguiente()
 
 
 

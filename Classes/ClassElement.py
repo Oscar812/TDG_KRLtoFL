@@ -49,7 +49,6 @@ class ElementosXML:
                               Nodo.obtenerRelacion())
                 info.append(inner)
 
-
         actual = Lista.cabeza
         while actual != None:
             encontrado = False
@@ -61,6 +60,21 @@ class ElementosXML:
                         encontrado = True
                     actual2 = actual2.obtenerSiguiente()
             actual = actual.obtenerSiguiente()
+
+        for (ev, el) in ET.iterparse(file):
+            inner = []
+            if el.tag == 'mxCell':
+                for name, value in el.items():
+                    if (name == "value") and (value is not ""):
+                        actual = Lista.cabeza
+                        while actual != None:
+                            if actual.obtenerId() == el.get('parent'):
+                                actual.setTag (value)
+                            actual = actual.obtenerSiguiente()
+
+
+
+
 
         return (Lista)
 

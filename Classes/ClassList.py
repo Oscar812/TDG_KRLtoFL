@@ -5,15 +5,11 @@ class Nodo:
         self.Id = Id
         self.Parent = Parent
         self.siguiente = None
-        #self.Source = []
-        #self.
-        #self.Relacion = [self.Source,self.Target]Target = []
         self.Relacion = []
-        #matriz = [range(numero_columnas) for i in range(numero_filas)]
         self.Hijos = []
         self.Conexion = []
         self.Regla = ""
-        self.Tag =""
+        self.Tag = ""
         '''
         NIVEL
         RELACION [SOURCE, TARGET]

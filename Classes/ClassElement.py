@@ -7,8 +7,12 @@ from Classes import ClassList
 
 
 class ElementosXML:
-
-    Lista = ClassList.ListaNoOrdenada()
+    def __init__(self):
+        self.Reglas =[]
+    def setReglas(self, Regla):
+        self.Reglas.append(Regla)
+    def obtenerReglas(self):
+        return self.Reglas
 
     def ObtenerElementos (self, file, Lista):
         #Nodo = ClassList.Nodo('', '', '', '', '', '')
@@ -136,12 +140,37 @@ class ElementosXML:
         while actual != None:
             if (actual.obtenerTipo() == "Regla"):
                 Lista.AgregarRegla(actual.obtenerId())
+                self.AsigRegla(actual.obtenerId())
             actual = actual.obtenerSiguiente()
 
 
-    #def BuscarPatron(self):
+    def BuscarPatron(self, ListaRegla, ListaModelo):
+            if (self.obtenerReglas()):
+                Regla = []
+                Regla= self.obtenerReglas()
+                for i in range(len(Regla)):
+                    actual = ListaRegla.cabeza
+                    while actual != None:
+                        if actual.obtenerRegla() == Regla[i]:
+                            self.Patrones(actual,ListaModelo, ListaRegla)
+                        actual = actual.obtenerSiguiente()
 
 
+
+    def Patrones(self, Objeto, ListaModelo, ListaRegla):
+        actual = ListaRegla.cabeza
+        if Objeto.obtenerRelacion():
+            Relacion = []
+            Relacion = Objeto.obtenerRelacion()
+            while actual != None:
+                if actual.obtenerId() == Relacion[0]:
+
+                    print("aqui voy")
+
+
+
+    def PatronModelo(self, ListaModelo):
+        actual = ListaModelo.cabeza
 
 
 

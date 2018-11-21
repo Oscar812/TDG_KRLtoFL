@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Git_TDG.iml" filepath="$PROJECT_DIR$/.idea/Git_TDG.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/TDG_KRLtoFL.iml" filepath="$PROJECT_DIR$/.idea/TDG_KRLtoFL.iml" />
     </modules>
   </component>
 </project>

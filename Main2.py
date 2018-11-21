@@ -18,21 +18,20 @@ def deflate_and_base64_encode( string_val ):
     return base64.b64encode( compressed_string )
 from Classes import ClassElement as Elements
 
-e = ET.parse('TRANSFORMACION.xml')
-root = e.getroot()
-#i = 0
-k = 0
-Rel = []
-Hij =[]
-info = []
 Lista = ClassList.ListaNoOrdenada()
-file= "TRANSFORMACION.xml"
+file = "TRANSFORMACION.xml"
 Elementos = Elements.ElementosXML()
 Lista= Elementos.ObtenerElementos(file,Lista)
 Elementos.AsigConexion(Lista)
 Elementos.AsigRegla(Lista)
-Lista.Imprimir()
-
+#Lista.Imprimir()
+file2 = "Modelo_prueba.xml"
+ListaModelo = ClassList.ListaNoOrdenada()
+ListaModelo= Elementos.ObtenerElementos(file2,ListaModelo)
+Elementos.AsigConexion(ListaModelo)
+Elementos.AsigRegla(ListaModelo)
+#print("__________Modelo_______________")
+#ListaModelo.Imprimir()
 
 
 

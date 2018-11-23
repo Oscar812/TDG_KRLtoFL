@@ -61,6 +61,7 @@ class ElementosXML:
                     actual2 = actual2.obtenerSiguiente()
             actual = actual.obtenerSiguiente()
 
+
         for (ev, el) in ET.iterparse(file):
             inner = []
             if el.tag == 'mxCell':
@@ -71,10 +72,18 @@ class ElementosXML:
                             if actual.obtenerId() == el.get('parent'):
                                 actual.setTag (value)
                             actual = actual.obtenerSiguiente()
-
-
-
-
+        actual = Lista.cabeza
+        while actual != None:
+            encontrado = False
+            actual2 = Lista.cabeza
+            while actual2 != None and not encontrado:
+                if actual.obtenerId() == actual2.obtenerParent():
+                    actual2.setParentName(actual.obtenerNombre())
+                    print ("Dentro del while")
+                    print(actual2.obtenerNombre())
+                    encontrado = True
+                actual2 = actual2.obtenerSiguiente()
+            actual = actual.obtenerSiguiente()
 
         return (Lista)
 

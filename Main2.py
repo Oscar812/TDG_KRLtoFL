@@ -24,7 +24,7 @@ Elementos = Elements.ElementosXML()
 Lista= Elementos.ObtenerElementos(file,Lista)
 Elementos.AsigConexion(Lista)
 Elementos.AsigRegla(Lista)
-#Lista.Imprimir()
+Lista.Imprimir()
 file2 = "Modelo_prueba.xml"
 ListaModelo = ClassList.ListaNoOrdenada()
 ListaModelo= Elementos.ObtenerElementos(file2,ListaModelo)

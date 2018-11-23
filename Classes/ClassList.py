@@ -16,6 +16,7 @@ class Nodo:
         HIJOS []
         PARENT
         '''
+
     def setNombre(self,Nombre):
         self.Nombre = Nombre
     def setTipo(self, Tipo):
@@ -69,6 +70,13 @@ class ListaNoOrdenada:
 
      def __init__(self):
         self.cabeza = None
+        self.Reglas = []
+
+     def SetReglas(self, Regla):
+         self.Reglas.append(Regla)
+
+     def obtenerReglas(self):
+         return self.Reglas
 
      def SetCabeza(self):
         return self.cabeza

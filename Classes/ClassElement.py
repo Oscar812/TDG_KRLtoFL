@@ -6,13 +6,9 @@ import xml.etree.ElementTree as ET
 from Classes import ClassList
 
 
+
 class ElementosXML:
-    def __init__(self):
-        self.Reglas =[]
-    def setReglas(self, Regla):
-        self.Reglas.append(Regla)
-    def obtenerReglas(self):
-        return self.Reglas
+    Lista = ClassList.ListaNoOrdenada()
 
     def ObtenerElementos (self, file, Lista):
         #Nodo = ClassList.Nodo('', '', '', '', '', '')
@@ -140,7 +136,7 @@ class ElementosXML:
         while actual != None:
             if (actual.obtenerTipo() == "Regla"):
                 Lista.AgregarRegla(actual.obtenerId())
-                self.AsigRegla(actual.obtenerId())
+                Lista.SetReglas(actual.obtenerId())
             actual = actual.obtenerSiguiente()
 
 
@@ -149,7 +145,7 @@ class ElementosXML:
                 Regla = []
                 Regla= self.obtenerReglas()
                 for i in range(len(Regla)):
-                    actual = ListaRegla.cabeza
+                    actual = ListaRegla.SetCabeza
                     while actual != None:
                         if actual.obtenerRegla() == Regla[i]:
                             self.Patrones(actual,ListaModelo, ListaRegla)
@@ -158,7 +154,7 @@ class ElementosXML:
 
 
     def Patrones(self, Objeto, ListaModelo, ListaRegla):
-        actual = ListaRegla.cabeza
+        actual = ListaRegla.SetCabeza
         if Objeto.obtenerRelacion():
             Relacion = []
             Relacion = Objeto.obtenerRelacion()
@@ -170,7 +166,7 @@ class ElementosXML:
 
 
     def PatronModelo(self, ListaModelo):
-        actual = ListaModelo.cabeza
+        actual = ListaModelo.SetCabeza
 
 
 

@@ -10,6 +10,9 @@ class Nodo:
         self.Conexion = []
         self.Regla = ""
         self.Tag = ""
+        self.ParentName = ""
+
+
         '''
         NIVEL
         RELACION [SOURCE, TARGET]
@@ -25,6 +28,9 @@ class Nodo:
         self.Id = Id
     def setParent(self, Parent):
         self.Parent = Parent
+
+    def setParentName(self, ParentName):
+        self.ParentName = ParentName
     def setRelacion(self,Source,Target):
         #self.Source.append(Source)
         #self.Target.append(Target)
@@ -48,6 +54,9 @@ class Nodo:
         return self.Regla
     def obtenerParent(self):
         return self.Parent
+    def obtenerParentName(self):
+        return self.ParentName
+
     def obtenerSiguiente(self):
         return self.siguiente
     def obtenerHijos(self):
@@ -179,7 +188,10 @@ class ListaNoOrdenada:
              print("_______________________________")
              print(actual.obtenerNombre())
              print(actual.obtenerTipo())
+             print("--------Parent info--------")
              print(actual.obtenerParent())
+             print(actual.obtenerParentName)
+             print("--------------------------------")
              print(actual.obtenerId())
              print("Relación")
              print(actual.obtenerRelacion())
@@ -194,5 +206,6 @@ class ListaNoOrdenada:
              print("Tag: ")
              print(actual.obtenerTag())
              actual = actual.obtenerSiguiente()
+
 
 

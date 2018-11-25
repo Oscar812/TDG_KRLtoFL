@@ -159,36 +159,50 @@ class ElementosXML:
                 print("Hay reglas: ")
                 Regla = []
                 Regla= ListaRegla.obtenerReglas()
+                print("Reglas:",Regla)
+                print(len(Regla))
                 for i in range(len(Regla)):
+                    actual = ClassList.Nodo()
                     actual = ListaRegla.cabeza
+                    print("Regla #",i, Regla[i])
+
                     while actual != None:
-                        print(actual.obtenerRegla())
                         if actual.obtenerRegla() == Regla[i] and actual.obtenerParentName()== "Source":
                             print("Encontré elemento del source")
+                            print("Le mandé Id: "+ actual.obtenerId())
                             self.Patrones(actual, ListaModelo, ListaRegla)
+                            print("Voy por aqui: " ,actual.obtenerId())
                         actual = actual.obtenerSiguiente()
+                        print("Actual: ",actual)
+
 
 
 
     def Patrones(self, Objeto, ListaModelo, ListaRegla):
-        actual = ListaRegla.SetCabeza
+        print("ID: "+Objeto.obtenerId())
+        print("Tipo: " + Objeto.obtenerTipo())
         if Objeto.obtenerRelacion():
+            print("Tiene Relacion")
             Relacion = []
             Relacion = Objeto.obtenerRelacion()
+            actual = ListaRegla.cabeza
+            print(Relacion[0])
             while actual != None:
                 if actual.obtenerId() == Relacion[0]:
-                    print("aqui voy")
+                    print("Aqui voy")
+                    self.Patrones(actual, ListaModelo, ListaRegla)
+                actual = actual.obtenerSiguiente()
         else:
                 self.PatronModelo(ListaModelo, Objeto)
 
 
 
     def PatronModelo(self, ListaModelo, Objeto):
-
         actual = ListaModelo.SetCabeza
-        while actual != None:
-            if actual.obtenerTipo() == Objeto.obtenerTipo():
-                print("Encontré el tipo")
+        print("no tiene relacion estoy en el patronmodelo")
+        #while actual != None:
+            #if actual.obtenerTipo() == Objeto.obtenerTipo():
+                #print("Encontré el tipo")
         
 
 

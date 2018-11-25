@@ -11,8 +11,6 @@ class Nodo:
         self.Regla = ""
         self.Tag = ""
         self.ParentName = ""
-
-
         '''
         NIVEL
         RELACION [SOURCE, TARGET]
@@ -28,7 +26,6 @@ class Nodo:
         self.Id = Id
     def setParent(self, Parent):
         self.Parent = Parent
-
     def setParentName(self, ParentName):
         self.ParentName = ParentName
     def setRelacion(self,Source,Target):
@@ -56,7 +53,6 @@ class Nodo:
         return self.Parent
     def obtenerParentName(self):
         return self.ParentName
-
     def obtenerSiguiente(self):
         return self.siguiente
     def obtenerHijos(self):

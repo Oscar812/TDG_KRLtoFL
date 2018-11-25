@@ -78,9 +78,10 @@ class ElementosXML:
             actual2 = Lista.cabeza
             while actual2 != None and not encontrado:
                 if actual.obtenerId() == actual2.obtenerParent():
-                    actual2.setParentName(actual.obtenerNombre())
-                    print ("Dentro del while")
-                    print(actual2.obtenerNombre())
+                    if actual.obtenerTipo():
+                        actual2.setParentName(actual.obtenerTipo())
+                    #print ("Dentro del while")
+                    #print(actual2.obtenerTipo())
                     encontrado = True
                 actual2 = actual2.obtenerSiguiente()
             actual = actual.obtenerSiguiente()
@@ -150,14 +151,18 @@ class ElementosXML:
 
 
     def BuscarPatron(self, ListaRegla, ListaModelo):
-            if (self.obtenerReglas()):
+            print("Estoy buscando Patron")
+            if (ListaRegla.obtenerReglas()):
+                print("Hay reglas: ")
                 Regla = []
-                Regla= self.obtenerReglas()
+                Regla= ListaRegla.obtenerReglas()
                 for i in range(len(Regla)):
-                    actual = ListaRegla.SetCabeza
+                    actual = ListaRegla.cabeza
                     while actual != None:
-                        if actual.obtenerRegla() == Regla[i]:
-                            self.Patrones(actual,ListaModelo, ListaRegla)
+                        print(actual.obtenerRegla())
+                        if actual.obtenerRegla() == Regla[i] and actual.obtenerParentName()== "Source":
+                            print("Encontré elemento del source")
+                            self.Patrones(actual, ListaModelo, ListaRegla)
                         actual = actual.obtenerSiguiente()
 
 
@@ -169,14 +174,19 @@ class ElementosXML:
             Relacion = Objeto.obtenerRelacion()
             while actual != None:
                 if actual.obtenerId() == Relacion[0]:
-
                     print("aqui voy")
+        else:
+                self.PatronModelo(ListaModelo, Objeto)
 
 
 
-    def PatronModelo(self, ListaModelo):
+    def PatronModelo(self, ListaModelo, Objeto):
+
         actual = ListaModelo.SetCabeza
-
+        while actual != None:
+            if actual.obtenerTipo() == Objeto.obtenerTipo():
+                print("Encontré el tipo")
+        
 
 
 

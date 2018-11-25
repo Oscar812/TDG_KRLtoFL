@@ -26,6 +26,10 @@ class ElementosXML:
                         Nodo.setNombre(value)
                     if (name == 'Tipo'):
                         Nodo.setTipo(value)
+                        if (value == 'Target'):
+                            print ("valor")
+                            print (value)
+
                 relacion = []
 
                 for i in el:
@@ -80,8 +84,7 @@ class ElementosXML:
                 if actual.obtenerId() == actual2.obtenerParent():
                     if actual.obtenerTipo():
                         actual2.setParentName(actual.obtenerTipo())
-                    #print ("Dentro del while")
-                    #print(actual2.obtenerTipo())
+                    print(actual2.obtenerTipo())
                     encontrado = True
                 actual2 = actual2.obtenerSiguiente()
             actual = actual.obtenerSiguiente()

@@ -1,16 +1,34 @@
 class Nodo:
-    def __init__(self,Nombre,Tipo,Id,Parent):
-        self.Nombre = Nombre
-        self.Tipo = Tipo
-        self.Id = Id
-        self.Parent = Parent
-        self.siguiente = None
-        self.Relacion = []
-        self.Hijos = []
-        self.Conexion = []
-        self.Regla = ""
-        self.Tag = ""
-        self.ParentName = ""
+    #def __init__(self,Nombre,Tipo,Id,Parent):
+    def __init__(self, *args):
+        if len(args)>0:
+            Nombre = args[0]
+            Tipo = args[1]
+            Id = args[2]
+            Parent = args[3]
+            self.Nombre = Nombre
+            self.Tipo = Tipo
+            self.Id = Id
+            self.Parent = Parent
+            self.siguiente = None
+            self.Relacion = []
+            self.Hijos = []
+            self.Conexion = []
+            self.Regla = ""
+            self.Tag = ""
+            self.ParentName = ""
+        else:
+            self.Nombre = ""
+            self.Tipo = ""
+            self.Id = ""
+            self.Parent = ""
+            self.siguiente = None
+            self.Relacion = []
+            self.Hijos = []
+            self.Conexion = []
+            self.Regla = ""
+            self.Tag = ""
+            self.ParentName = ""
         '''
         NIVEL
         RELACION [SOURCE, TARGET]

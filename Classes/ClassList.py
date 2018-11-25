@@ -10,31 +10,18 @@ class Nodo:
             self.Tipo = Tipo
             self.Id = Id
             self.Parent = Parent
-            self.siguiente = None
-            self.Relacion = []
-            self.Hijos = []
-            self.Conexion = []
-            self.Regla = ""
-            self.Tag = ""
-            self.ParentName = ""
         else:
             self.Nombre = ""
             self.Tipo = ""
             self.Id = ""
             self.Parent = ""
-            self.siguiente = None
-            self.Relacion = []
-            self.Hijos = []
-            self.Conexion = []
-            self.Regla = ""
-            self.Tag = ""
-            self.ParentName = ""
-        '''
-        NIVEL
-        RELACION [SOURCE, TARGET]
-        HIJOS []
-        PARENT
-        '''
+        self.siguiente = None
+        self.Relacion = []
+        self.Hijos = []
+        self.Conexion = []
+        self.Regla = ""
+        self.Tag = ""
+        self.ParentName = ""
 
     def setNombre(self,Nombre):
         self.Nombre = Nombre

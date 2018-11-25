@@ -70,19 +70,18 @@ class ElementosXML:
                         actual = Lista.cabeza
                         while actual != None:
                             if actual.obtenerId() == el.get('parent'):
-                                actual.setTag (value)
+                                actual.setTag(value)
                             actual = actual.obtenerSiguiente()
+        actual = ClassList.Nodo()
         actual = Lista.cabeza
         while actual != None:
             encontrado = False
+            actual2 = ClassList.Nodo()
             actual2 = Lista.cabeza
-            while actual2 != None and not encontrado:
+            while actual2 != None:
                 if actual.obtenerId() == actual2.obtenerParent():
-                    if actual.obtenerTipo():
+                    if actual.obtenerTipo() != "":
                         actual2.setParentName(actual.obtenerTipo())
-                    #print ("Dentro del while")
-                    #print(actual2.obtenerTipo())
-                    encontrado = True
                 actual2 = actual2.obtenerSiguiente()
             actual = actual.obtenerSiguiente()
 
@@ -171,8 +170,6 @@ class ElementosXML:
                             print("Voy por aqui: " ,actual.obtenerId())
                         actual = actual.obtenerSiguiente()
                         print("Actual: ",actual)
-
-
 
 
     def Patrones(self, Objeto, ListaModelo, ListaRegla):

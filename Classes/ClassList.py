@@ -191,7 +191,7 @@ class ListaNoOrdenada:
              print(actual.obtenerTipo())
              print("--------Parent info--------")
              print(actual.obtenerParent())
-             print(actual.obtenerParentName)
+             print(actual.obtenerParentName())
              print("--------------------------------")
              print(actual.obtenerId())
              print("Relación")

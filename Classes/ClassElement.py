@@ -85,14 +85,9 @@ class ElementosXML:
             while actual2 != None:
                 if actual.obtenerId() == actual2.obtenerParent():
                     if actual.obtenerTipo() != "":
-                        actual2.setParentName(actual.obtenerTipo())
-<<<<<<< HEAD
-=======
-                    print(actual2.obtenerTipo())
-                    encontrado = True
->>>>>>> c76f6eeebc1aaf083bdb5ea111bdef7d70880275
+                        actual2.setParentName(actual.obtenerTipo())                        
                 actual2 = actual2.obtenerSiguiente()
-            actual = actual.obtenerSiguiente()
+            actual = actual. obtenerSiguiente()
 
         return (Lista)
 

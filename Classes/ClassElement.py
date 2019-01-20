@@ -189,9 +189,22 @@ class ElementosXML:
                 if actual.obtenerId() == Relacion[0]:
                     print("Aqui voy")
                     self.Patrones(actual, ListaModelo, ListaRegla)
+
                 actual = actual.obtenerSiguiente()
-        else:
-                self.PatronModelo(ListaModelo, Objeto)
+
+        #print("no tiene relacion")
+        if Objeto.obtenerHijos():
+            print("tiene hijos")
+            Hijos = []
+            Hijos = Objeto.obtenerHijos()
+            actual = ListaRegla.cabeza
+            i = 0
+            while actual != None and len(Hijos)>i:
+                if actual.obtenerId() == Hijos[i]:
+                    print("encontre los hijos")
+                    i=+1
+                actual=actual.obtenerSiguiente()
+            #self.PatronModelo(ListaModelo, Objeto)
 
 
 

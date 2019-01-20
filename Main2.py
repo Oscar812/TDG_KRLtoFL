@@ -32,8 +32,6 @@ Elementos.AsigConexion(ListaModelo)
 Elementos.AsigRegla(ListaModelo)
 print("__________Modelo_______________")
 #ListaModelo.Imprimir()
-
-
 #Elementos.BuscarPatron(Lista,ListaModelo)
 
 

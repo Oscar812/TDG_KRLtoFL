@@ -188,6 +188,7 @@ class ListaNoOrdenada:
              print("Imprimir lista de nodos")
              print("_______________________________")
              print(actual.obtenerNombre())
+             print ("TIPO")
              print(actual.obtenerTipo())
              print("--------Parent info--------")
              print(actual.obtenerParent())

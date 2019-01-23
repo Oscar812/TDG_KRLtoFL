@@ -179,20 +179,22 @@ class ElementosXML:
     def Patrones(self, Objeto, ListaModelo, ListaRegla):
         print("ID: "+Objeto.obtenerId())
         print("Tipo: " + Objeto.obtenerTipo())
+
         if Objeto.obtenerRelacion():
             print("Tiene Relacion")
             Relacion = []
             Relacion = Objeto.obtenerRelacion()
-            actual = ListaRegla.cabeza
             print(Relacion[0])
-            while actual != None:
-                if actual.obtenerId() == Relacion[0]:
-                    print("Aqui voy")
-                    self.Patrones(actual, ListaModelo, ListaRegla)
-
-                actual = actual.obtenerSiguiente()
-
+            self.patrones(Relacion[0], ListaModelo, ListaRegla)
         #print("no tiene relacion")
+
+        if Objeto.obtenerConexion():
+            print("Tiene Conexion")
+            Conexion=[]
+            Conexion = Objeto.obtenerConexion()
+            if Conexion[3]=="Target":
+                self.patrones(Conexion[1],ListaModelo,ListaRegla)
+
         if Objeto.obtenerHijos():
             print("tiene hijos")
             Hijos = []

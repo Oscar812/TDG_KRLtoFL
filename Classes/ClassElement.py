@@ -26,12 +26,6 @@ class ElementosXML:
                         Nodo.setNombre(value)
                     if (name == 'Tipo'):
                         Nodo.setTipo(value)
-                        if (value == 'Target'):
-                            print ("valor")
-                            print (value)
-
-                relacion = []
-
                 for i in el:
                     if str(i.text) != 'None':
                         inner.append([i.tag, str(i.text).replace('\n', '').replace(' ', '')])

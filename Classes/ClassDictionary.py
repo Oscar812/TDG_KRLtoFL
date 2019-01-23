@@ -1,13 +1,16 @@
 import xml.etree.ElementTree as ET
 from Classes import ClassList
 
-class ElementosXML:
+class DiccionarioKRL:
     Lista = ClassList.ListaNoOrdenada()
 
-    def crearRegla(self,Lista,Diccionario):
+    def crearDiccionario(self,Lista):
         actual = Lista.cabeza
         while actual != None:
-            if (actual.obtenerTipo() != ""):
-                Lista.AgregarRegla(actual.obtenerId())
-                Lista.SetReglas(actual.obtenerId())
+            if (actual.obtenerParentName() == "Source"):
+                print("___________________")
+                print(actual.obtenerTipo())
+                print(actual.obtenerNombre())
+                print (actual.obtenerId())
+                #Lista.SetReglas(actual.obtenerId())
             actual = actual.obtenerSiguiente()

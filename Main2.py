@@ -4,6 +4,7 @@ from functools import partial
 import zlib
 import base64
 from Classes import ClassList
+from Classes import ClassDictionary
 import urllib.parse
 def urlencode(str):
     return urllib.parse.quote(str)
@@ -24,12 +25,16 @@ Elementos = Elements.ElementosXML()
 Lista= Elementos.ObtenerElementos(file,Lista)
 Elementos.AsigConexion(Lista)
 Elementos.AsigRegla(Lista)
-Lista.Imprimir()
+Diccionario= ClassDictionary.DiccionarioKRL()
+#Diccionario.crearDiccionario(Lista)
+
+#Lista.Imprimir()
 file2 = "Modelo_prueba.xml"
 ListaModelo = ClassList.ListaNoOrdenada()
-ListaModelo= Elementos.ObtenerElementos(file2,ListaModelo)
+ListaModelo = Elementos.ObtenerElementos(file2,ListaModelo)
 Elementos.AsigConexion(ListaModelo)
 Elementos.AsigRegla(ListaModelo)
+Diccionario.crearDiccionario(ListaModelo)
 print("__________Modelo_______________")
 #ListaModelo.Imprimir()
 #Elementos.BuscarPatron(Lista,ListaModelo)

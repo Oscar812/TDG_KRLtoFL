@@ -151,6 +151,7 @@ class ListaNoOrdenada:
                 encontrado = True
              actual = actual.obtenerSiguiente()
 
+
      def AgregarRegla(self, IdRegla):
          actual = self.cabeza
          encontrado = False
@@ -208,6 +209,5 @@ class ListaNoOrdenada:
              print("Tag: ")
              print(actual.obtenerTag())
              actual = actual.obtenerSiguiente()
-
 
 

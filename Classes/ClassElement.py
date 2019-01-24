@@ -3,12 +3,13 @@ Element maintence
 
 '''
 import xml.etree.ElementTree as ET
-from Classes import ClassList
-
+from Classes import ClassList, ClassDictionary
 
 
 class ElementosXML:
     Lista = ClassList.ListaNoOrdenada()
+    DicReglas = ClassDictionary.ListaDictionary()
+    DicModelo = ClassDictionary.ListaDictionary()
 
     def ObtenerElementos (self, file, Lista):
         #Nodo = ClassList.Nodo('', '', '', '', '', '')
@@ -147,29 +148,87 @@ class ElementosXML:
             actual = actual.obtenerSiguiente()
 
 
-    def BuscarPatron(self, ListaRegla, ListaModelo):
-            print("Estoy buscando Patron")
-            if (ListaRegla.obtenerReglas()):
-                print("Hay reglas: ")
-                Regla = []
-                Regla= ListaRegla.obtenerReglas()
-                print("Reglas:",Regla)
-                print(len(Regla))
-                for i in range(len(Regla)):
-                    actual = ClassList.Nodo()
-                    actual = ListaRegla.cabeza
-                    print("Regla #",i, Regla[i])
+    def LLenarDic(self, ListaRegla, DicReg, Tipo):
+            if Tipo=="Regla":
 
-                    while actual != None:
-                        if actual.obtenerRegla() == Regla[i] and actual.obtenerParentName()== "Source":
-                            print("Encontré elemento del source")
-                            print("Le mandé Id: "+ actual.obtenerId())
-                            self.Patrones(actual, ListaModelo, ListaRegla)
-                            print("Voy por aqui: " ,actual.obtenerId())
-                        actual = actual.obtenerSiguiente()
-                        print("Actual: ",actual)
+                print("Estoy buscando Patron")
+                if (ListaRegla.obtenerReglas()):
+                    print("Hay reglas: ")
+                    Regla = []
+                    Regla= ListaRegla.obtenerReglas()
+                    for i in range(len(Regla)):
+                        #actual = ClassList.Nodo()
+                        #actual = ListaRegla.cabeza
+                        print("Regla #",i, Regla[i])
+                        Sec = 1
+                        Sw=0
+                        Ind = 'Regla'
+                        while True:
+                            self.Patrones2(Regla[i],Sec,ListaRegla,DicReg,Sw,Ind)
+                            if Sw != 1:
+                                break
+                            else:
+                                Sec += 1
+                            #print("Voy por aqui: " ,actual.obtenerId())
+                            #actual = actual.obtenerSiguiente()
+                            #print("Actual: ",actual)
+            else:
+                Sec = 1
+                Sw = 0
+                Ind='Modelo'
+                self.Patrones2("",Sec,ListaRegla,DicReg,Sw,Ind)
+            return (DicReg)
 
 
+    def Patrones2(self, Id, Sec, Lista,Dic,Sw, Ind):
+        #print("ID: "+Objeto.obtenerId())
+        #print("Tipo: " + Objeto.obtenerTipo())
+        #Validar si es un tipo conexion
+        if Sec == 1:
+            if Ind == 'Regla':
+                actual = ClassList.Nodo()
+                actual = Lista.cabeza
+                while actual != None:
+                    if actual.obtenerRegla() == Id  and actual.obtenerParentName() == "Source":
+                        Dic.agregar(Sec,actual.obtenerTipo(),actual.obtenerId())
+                    actual = actual.obtenerSiguiente()
+            else:
+                actual = ClassList.Nodo()
+                actual = Lista.cabeza
+                while actual != None:
+                    Dic.agregar(Sec, actual.obtenerTipo(), actual.obtenerId())
+                    actual = actual.obtenerSiguiente()
+            Sw = 1
+
+'''
+        if Objeto.obtenerRelacion():
+            print("Tiene Relacion")
+            Relacion = []
+            Relacion = Objeto.obtenerRelacion()
+            print(Relacion[0])
+            self.patrones(Relacion[0], ListaModelo, ListaRegla)
+        else:
+            #print("no tiene relacion")
+            if Objeto.obtenerConexion():
+                print("Tiene Conexion")
+                Conexion=[]
+                Conexion = Objeto.obtenerConexion()
+                if Conexion[3]=="Target":
+                    self.patrones(Conexion[1],ListaModelo,ListaRegla)
+                else Conexion[3]=="Source":
+                    agregardiccionar
+                    enciendobandera
+            else:
+                if Objeto.obtenerHijos() and Objeto.obtenerParentName()=="Source":
+                    print("tiene hijos")
+                    Hijos = []
+                    Hijos = Objeto.obtenerHijos()
+                    #self.PatronModelo(ListaModelo, Objeto)
+
+        if Objeto:
+            aqui
+
+  
     def Patrones(self, Objeto, ListaModelo, ListaRegla):
         print("ID: "+Objeto.obtenerId())
         print("Tipo: " + Objeto.obtenerTipo())
@@ -180,28 +239,26 @@ class ElementosXML:
             Relacion = Objeto.obtenerRelacion()
             print(Relacion[0])
             self.patrones(Relacion[0], ListaModelo, ListaRegla)
-        #print("no tiene relacion")
+        else:
+            #print("no tiene relacion")
+            if Objeto.obtenerConexion():
+                print("Tiene Conexion")
+                Conexion=[]
+                Conexion = Objeto.obtenerConexion()
+                if Conexion[3]=="Target":
+                    self.patrones(Conexion[1],ListaModelo,ListaRegla)
+                else Conexion[3]=="Source":
+                    agregardiccionar
+                    enciendobandera
+            else:
+                if Objeto.obtenerHijos() and Objeto.obtenerParentName()=="Source":
+                    print("tiene hijos")
+                    Hijos = []
+                    Hijos = Objeto.obtenerHijos()
+                    #self.PatronModelo(ListaModelo, Objeto)
 
-        if Objeto.obtenerConexion():
-            print("Tiene Conexion")
-            Conexion=[]
-            Conexion = Objeto.obtenerConexion()
-            if Conexion[3]=="Target":
-                self.patrones(Conexion[1],ListaModelo,ListaRegla)
-
-        if Objeto.obtenerHijos():
-            print("tiene hijos")
-            Hijos = []
-            Hijos = Objeto.obtenerHijos()
-            actual = ListaRegla.cabeza
-            i = 0
-            while actual != None and len(Hijos)>i:
-                if actual.obtenerId() == Hijos[i]:
-                    print("encontre los hijos")
-                    i=+1
-                actual=actual.obtenerSiguiente()
-            #self.PatronModelo(ListaModelo, Objeto)
-
+        if Objeto
+            
 
 
     def PatronModelo(self, ListaModelo, Objeto):
@@ -209,8 +266,8 @@ class ElementosXML:
         print("no tiene relacion estoy en el patronmodelo")
         #while actual != None:
             #if actual.obtenerTipo() == Objeto.obtenerTipo():
-                #print("Encontré el tipo")
-        
+            #print("Encontré el tipo")
+        '''
 
 
 

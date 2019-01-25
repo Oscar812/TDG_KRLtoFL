@@ -57,12 +57,12 @@ class ListaDictionary:
     def Imprimir(self):
         actual = self.cabeza
         while actual != None:
-            print("Secuencia: ")
-            print(actual.obtenerSec())
-            print("Patron: ")
-            print(actual.obtenerPatron())
-            print("Id: ")
-            print(actual.obtenerId())
+            print("Secuencia: "+ str(actual.obtenerSec()) )
+            #print(actual.obtenerSec())
+            print("Patron: " + actual.obtenerPatron())
+            #print(actual.obtenerPatron())
+            print("Id: " + actual.obtenerId())
+            #print(actual.obtenerId())
             actual = actual.obtenerSiguiente()
 
 

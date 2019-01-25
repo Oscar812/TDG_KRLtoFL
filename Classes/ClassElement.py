@@ -168,7 +168,7 @@ class ElementosXML:
                             if Sw != 1:
                                 break
                             else:
-                                Sec += 1
+                               Sec += 1
                             #print("Voy por aqui: " ,actual.obtenerId())
                             #actual = actual.obtenerSiguiente()
                             #print("Actual: ",actual)
@@ -186,7 +186,6 @@ class ElementosXML:
         #Validar si es un tipo conexion
         if Sec == 1:
             if Ind == 'Regla':
-                actual = ClassList.Nodo()
                 actual = Lista.cabeza
                 while actual != None:
                     if actual.obtenerRegla() == Id  and actual.obtenerParentName() == "Source":
@@ -195,10 +194,12 @@ class ElementosXML:
             else:
                 actual = ClassList.Nodo()
                 actual = Lista.cabeza
-                while actual != None:
+                while actual != None:actual.obtenerId()
                     Dic.agregar(Sec, actual.obtenerTipo(), actual.obtenerId())
                     actual = actual.obtenerSiguiente()
             Sw = 1
+
+
 
 '''
         if Objeto.obtenerRelacion():
@@ -228,7 +229,39 @@ class ElementosXML:
         if Objeto:
             aqui
 
-  
+    '''
+    def obtenerDatos(self, Lista, Dic):
+
+        DicActual= Dic.cabeza
+        Elementos= []
+        ids= []
+        while DicActual != None:
+            actual = Lista.cabeza
+            Elementos = Dic.obtenerPatron()
+            ids= Dic.obtenerId()
+                while actual != None:
+                    for i in len(ids):
+                        if (actual.obtenerId()==ids[i]):
+                            if (actual.obtenerConexion()):
+                                conexion=[]
+                                conexion= obtenerConexion()
+                                if(conexion[3]== "Source")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    '''  
     def Patrones(self, Objeto, ListaModelo, ListaRegla):
         print("ID: "+Objeto.obtenerId())
         print("Tipo: " + Objeto.obtenerTipo())

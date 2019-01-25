@@ -230,13 +230,14 @@ class ElementosXML:
             aqui
 
     '''
-    def obtenerDatos(self, Lista, Dic):
+    def obtenerDatos(self, Lista, Dic,Sec):
 
         DicActual= Dic.cabeza
         Elementos= []
         ids= []
         while DicActual != None:
             actual = Lista.cabeza
+            cont=1
             Elementos = Dic.obtenerPatron()
             ids= Dic.obtenerId()
                 while actual != None:
@@ -244,8 +245,33 @@ class ElementosXML:
                         if (actual.obtenerId()==ids[i]):
                             if (actual.obtenerConexion()):
                                 conexion=[]
-                                conexion= obtenerConexion()
-                                if(conexion[3]== "Source")
+                                for j in len(actual.obtenerConexion()):
+                                    conexion=actual.obtenerConexion()[i]
+                                    if(conexion[3]== "Source"):
+                                        Elementos.insert(i+1,conexion[2])
+                                        ids.insert(i+1,conexion[1])
+                                        cont += 1
+                                    if (conexion[3]=="Target"):
+                                        Elementos.insert(i-1,conexion[2])
+                                        ids.insert(i-1,conexion[1])
+                                        cont +=1
+                            if (actual.obtenerRelacion()):
+                                relacion=[]
+                                relacion= actual.obtenerRelacion()
+                                ##source
+                                if relacion[0]:
+                                    ids.insert(i+1)
+                                if relacion[1]:
+                                    ids.insert(i-1)
+
+
+
+
+
+
+
+
+
 
 
 

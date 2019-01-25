@@ -34,12 +34,10 @@ class Nodo:
     def setParentName(self, ParentName):
         self.ParentName = ParentName
     def setRelacion(self,Source,Target):
-        #self.Source.append(Source)
-        #self.Target.append(Target)
-        #self.Relacion.extend([self.Source,self.Target])
         self.Relacion.extend([Source,Target])
-    def setConexion(self,Tipo,Conexion,MedioCon,TipoRel):
-        self.Conexion.extend([Tipo,Conexion,MedioCon,TipoRel])
+    #def setConexion(self, Tipo, Conexion, MedioCon, TipoRel):
+    def setConexion(self,Conexion):
+        self.Conexion.extend([Conexion])
     def setHijos(self,Hijo):
         self.Hijos.append(Hijo)
     def setRegla(self, Regla):
@@ -147,7 +145,10 @@ class ListaNoOrdenada:
              #print("Id: " +actual.obtenerId())
              if actual.obtenerId() == IdBus:
                 #print("Lo encontré")
-                actual.setConexion(TipoRel,IdConex1,IdConex2, TipoCon)
+                Conexion = []
+                Conexion.extend([TipoRel,IdConex1,IdConex2, TipoCon])
+                #actual.setConexion(TipoRel, IdConex1, IdConex2, TipoCon)
+                actual.setConexion(Conexion)
                 encontrado = True
              actual = actual.obtenerSiguiente()
 

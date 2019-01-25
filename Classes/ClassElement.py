@@ -194,11 +194,45 @@ class ElementosXML:
             else:
                 actual = ClassList.Nodo()
                 actual = Lista.cabeza
-                while actual != None:actual.obtenerId()
+                while actual != None:
+                    actual.obtenerId()
                     Dic.agregar(Sec, actual.obtenerTipo(), actual.obtenerId())
                     actual = actual.obtenerSiguiente()
-            Sw = 1
+                Sw = 1
 
+    def obtenerDatos(self, Lista, Dic, Sec):
+
+        DicActual = Dic.cabeza
+        Elementos = []
+        ids = []
+        while DicActual != None:
+            actual = Lista.cabeza
+            cont = 1
+            Elementos = Dic.obtenerPatron()
+            ids = Dic.obtenerId()
+            while actual != None:
+                for i in len(ids):
+                    if (actual.obtenerId() == ids[i]):
+                        if (actual.obtenerConexion()):
+                            conexion = []
+                            for j in len(actual.obtenerConexion()):
+                                conexion = actual.obtenerConexion()[i]
+                                if (conexion[3] == "Source"):
+                                    Elementos.insert(i + 1, conexion[2])
+                                    ids.insert(i + 1, conexion[1])
+                                    cont += 1
+                                if (conexion[3] == "Target"):
+                                    Elementos.insert(i - 1, conexion[2])
+                                    ids.insert(i - 1, conexion[1])
+                                    cont += 1
+                        if (actual.obtenerRelacion()):
+                            relacion = []
+                            relacion = actual.obtenerRelacion()
+                            ##source
+                            if relacion[0]:
+                                ids.insert(i + 1)
+                            if relacion[1]:
+                                ids.insert(i - 1)
 
 
 '''
@@ -229,65 +263,6 @@ class ElementosXML:
         if Objeto:
             aqui
 
-    '''
-    def obtenerDatos(self, Lista, Dic,Sec):
-
-        DicActual= Dic.cabeza
-        Elementos= []
-        ids= []
-        while DicActual != None:
-            actual = Lista.cabeza
-            cont=1
-            Elementos = Dic.obtenerPatron()
-            ids= Dic.obtenerId()
-                while actual != None:
-                    for i in len(ids):
-                        if (actual.obtenerId()==ids[i]):
-                            if (actual.obtenerConexion()):
-                                conexion=[]
-                                for j in len(actual.obtenerConexion()):
-                                    conexion=actual.obtenerConexion()[i]
-                                    if(conexion[3]== "Source"):
-                                        Elementos.insert(i+1,conexion[2])
-                                        ids.insert(i+1,conexion[1])
-                                        cont += 1
-                                    if (conexion[3]=="Target"):
-                                        Elementos.insert(i-1,conexion[2])
-                                        ids.insert(i-1,conexion[1])
-                                        cont +=1
-                            if (actual.obtenerRelacion()):
-                                relacion=[]
-                                relacion= actual.obtenerRelacion()
-                                ##source
-                                if relacion[0]:
-                                    ids.insert(i+1)
-                                if relacion[1]:
-                                    ids.insert(i-1)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    '''  
     def Patrones(self, Objeto, ListaModelo, ListaRegla):
         print("ID: "+Objeto.obtenerId())
         print("Tipo: " + Objeto.obtenerTipo())

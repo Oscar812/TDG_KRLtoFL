@@ -148,58 +148,150 @@ class ElementosXML:
             actual = actual.obtenerSiguiente()
 
 
-    def LLenarDic(self, ListaRegla, DicReg, Tipo):
+    def LLenarDic(self, Lista, Dic, Tipo):
+            Sec =1
             if Tipo=="Regla":
-
-                print("Estoy buscando Patron")
-                if (ListaRegla.obtenerReglas()):
-                    print("Hay reglas: ")
+                if (Lista.obtenerReglas()):
                     Regla = []
-                    Regla= ListaRegla.obtenerReglas()
+                    Regla= Lista.obtenerReglas()
                     for i in range(len(Regla)):
-                        #actual = ClassList.Nodo()
-                        #actual = ListaRegla.cabeza
-                        print("Regla #",i, Regla[i])
-                        Sec = 1
-                        Sw=0
                         Ind = 'Regla'
-                        while True:
-                            self.Patrones2(Regla[i],Sec,ListaRegla,DicReg,Sw,Ind)
-                            if Sw != 1:
-                                break
-                            else:
-                               Sec += 1
-                            #print("Voy por aqui: " ,actual.obtenerId())
-                            #actual = actual.obtenerSiguiente()
-                            #print("Actual: ",actual)
+                        self.Patrones2(Regla[i], Lista, Dic, Ind)
             else:
-                Sec = 1
-                Sw = 0
-                Ind='Modelo'
-                self.Patrones2("",Sec,ListaRegla,DicReg,Sw,Ind)
-            return (DicReg)
+                self.Patrones2("", Lista, Dic, Tipo)
+
+            while (self.obtenerDatos2(Lista, Dic)):
+                Sec += 1
+            return (Dic)
 
 
-    def Patrones2(self, Id, Sec, Lista,Dic,Sw, Ind):
-        #print("ID: "+Objeto.obtenerId())
-        #print("Tipo: " + Objeto.obtenerTipo())
-        #Validar si es un tipo conexion
-        if Sec == 1:
-            if Ind == 'Regla':
+    def Patrones2(self, Id, Lista, Dic, Ind):
+        Sec=1
+        if Ind == 'Regla':
+            actual = Lista.cabeza
+            while actual != None:
+                #print("ID regla"+str(actual.obtenerRegla()))
+                if actual.obtenerRegla() == Id and actual.obtenerParentName() == "Source":
+                    Patron = []
+                    Ids= []
+                    Patron.append(actual.obtenerTipo())
+                    Ids.append(actual.obtenerId())
+                    Dic.agregar(Sec,Patron,Ids)
+                actual = actual.obtenerSiguiente()
+        else:
+            actual = ClassList.Nodo()
+            actual = Lista.cabeza
+            while actual != None:
+                Patron = []
+                Ids = []
+                Patron.append(actual.obtenerTipo())
+                Ids.append(actual.obtenerId())
+                Dic.agregar(Sec,Patron,Ids)
+                actual = actual.obtenerSiguiente()
+        #return Dic
+
+
+    def obtenerDatos2(self, Lista, Dic):
+        #DicUltimReg = ClassDictionary.Nodo()
+        DicActual = Dic.cabeza
+        DicUltimReg = Dic.cabeza
+        Sec = DicUltimReg.obtenerSec()
+        Patron = []
+        Ids = []
+        swp=0
+        while DicActual != None:
+            if DicActual.obtenerSec()== Sec:
+                New = []
                 actual = Lista.cabeza
-                while actual != None:
-                    if actual.obtenerRegla() == Id  and actual.obtenerParentName() == "Source":
-                        Dic.agregar(Sec,actual.obtenerTipo(),actual.obtenerId())
+                Patron = DicActual.obtenerPatron()
+                Ids = DicActual.obtenerId()
+                long = len(Ids)
+                sw = 0
+                while actual != None and sw==0:
+                    if (actual.obtenerId() == Ids[0]):
+                        New=[]
+                        #print("Voy a buscar ID:"+str(Ids[0]))
+                        New=self.Analizarobjeto(Lista, Ids[0], 'I')
+                        if (New):
+                            #print("Antes: "+str(Patron))
+                            Patron.insert(0,New[0][0])
+                            #print("Despues: " + str(Patron))
+                            Ids.insert(0,New[0][1])
+                            #print("Patron: "+str(Patron))
+                            #print("BUSCAR: Id: "+str(Ids)+str(Dic.Buscar(Ids)))
+                            if not(Dic.Buscar(Ids,Sec+1)):
+                                #print("No existe lo guardo")
+                                Dic.agregar(Sec+1, Patron, Ids)
+                            #Dic.Imprimir()
+                            sw = 1
+                            break
+                    if (actual.obtenerId() == Ids[long-1] and sw==0):
+                        New=[]
+                        New = self.Analizarobjeto(Lista, Ids[long-1], 'D')
+                        if (New):
+                            Patron.append(New[0][0])
+                            Ids.append(New[0][1])
+                            if not(Dic.Buscar(Ids,Sec+1)):
+                                #print("No existe lo guardo")
+                                Dic.agregar(Sec + 1, Patron, Ids)
+                            sw = 1
+                            break
                     actual = actual.obtenerSiguiente()
-            else:
-                actual = ClassList.Nodo()
-                actual = Lista.cabeza
-                while actual != None:
-                    actual.obtenerId()
-                    Dic.agregar(Sec, actual.obtenerTipo(), actual.obtenerId())
-                    actual = actual.obtenerSiguiente()
-                Sw = 1
+                if sw!=0:
+                    swp +=1
+            DicActual = DicActual.obtenerSiguiente()
+        if swp > 0:
+            return Dic
+        else:
+            return False
 
+    def Analizarobjeto(self, Lista, Id, Orden):
+        actual = Lista.cabeza
+        RegDic = []
+        conexion = []
+        relacion = []
+        sw=0
+        while actual!= None and sw==0:
+            if actual.obtenerId()==Id:
+                conexion = actual.obtenerConexion()
+                for i in range (len(conexion)):
+                    Conx = conexion[i]
+                    RegDic = []
+                    if (Conx[3] == "Target" and Orden =='I'):
+                        Nodo=Lista.Buscar(Conx[2])
+                        RegDic.insert((0),[Nodo.obtenerTipo(),Conx[2]])
+                        #print(RegDic)
+                        sw=1
+                        break
+                    else:
+                        if (Conx[3] == "Source" and Orden=='D'):
+                            Nodo = Lista.Buscar(Conx[2])
+                            RegDic.insert(0,[Nodo.obtenerTipo(), Conx[2]])
+                            sw=1
+                            break
+                if sw == 0:
+                    RegDic = []
+                    if actual.obtenerRelacion():
+                        relacion = actual.obtenerRelacion()
+                        if Orden == 'I' and relacion[0]!= ' ':
+                            Nodo = Lista.Buscar(relacion[0])
+                            RegDic.insert(0,[Nodo.obtenerTipo(), relacion[0]])
+                            sw=1
+                        if Orden == 'D' and relacion[1]!= ' ':
+                            Nodo = Lista.Buscar(relacion[1])
+                            RegDic.insert(0,[Nodo.obtenerTipo(), relacion[1]])
+                            sw=1
+            actual=actual.obtenerSiguiente()
+        if sw!=0:
+            return RegDic
+        else:
+            return False
+
+
+
+
+
+'''
     def obtenerDatos(self, Lista, Dic, Sec):
 
         DicActual = Dic.cabeza
@@ -233,9 +325,9 @@ class ElementosXML:
                                 ids.insert(i + 1)
                             if relacion[1]:
                                 ids.insert(i - 1)
+**************************************************************************************************************
 
 
-'''
         if Objeto.obtenerRelacion():
             print("Tiene Relacion")
             Relacion = []

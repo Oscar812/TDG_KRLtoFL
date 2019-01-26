@@ -2,10 +2,15 @@ import xml.etree.ElementTree as ET
 class Nodo:
 
     def __init__(self, *args):
-            self.Secuencia = []
+        if len(args) > 0:
+            self.Secuencia = args[0]
+            self.Patron = args[1]
+            self.Id = args[2]
+        else:
+            self.Secuencia = ""
             self.Patron = []
             self.Id = []
-            self.siguiente = None
+        self.siguiente = None
 
     def obtenerSiguiente(self):
         return self.siguiente
@@ -49,7 +54,7 @@ class ListaDictionary:
         return self.cabeza == None
 
     def agregar(self, item1, item2, item3):
-        temp = Nodo()
+        temp = Nodo(item1, item2, item3)
         temp.asignarDato(item1, item2, item3)
         temp.asignarSiguiente(self.cabeza)
         self.cabeza = temp
@@ -57,14 +62,31 @@ class ListaDictionary:
     def Imprimir(self):
         actual = self.cabeza
         while actual != None:
-            print("Secuencia: "+ str(actual.obtenerSec()) )
+            print("Secuencia: "+ str(actual.obtenerSec()))
             #print(actual.obtenerSec())
-            print("Patron: " + actual.obtenerPatron())
+            print("Patron: " + str(actual.obtenerPatron()))
             #print(actual.obtenerPatron())
-            print("Id: " + actual.obtenerId())
+            print("Id: " + str(actual.obtenerId()))
             #print(actual.obtenerId())
             actual = actual.obtenerSiguiente()
 
+    def ObtenerUltReg(self):
+        actual= self.cabeza
+        while actual != None:
+            ultimo=actual
+            actual=actual.obtenerSiguiente()
+        return  ultimo
+
+    def Buscar(self, Id, Sec):
+        actual = Nodo("", "", "")
+        actual = self.cabeza
+        encontrado = False
+        while actual != None and not encontrado:
+            if actual.obtenerId() == Id and actual.obtenerSec()==Sec:
+                encontrado = True
+            else:
+                actual = actual.obtenerSiguiente()
+        return encontrado
 
 
 class ListaDiccionario:
@@ -83,3 +105,5 @@ class ListaDiccionario:
 
     def obtenerDato(self):
         return self.Matriz
+
+

@@ -134,7 +134,8 @@ class ListaNoOrdenada:
         while actual != None and not encontrado:
             if actual.obtenerId() == Id:
                 encontrado = True
-            actual=actual.obtenerSiguiente()
+            else:
+                actual=actual.obtenerSiguiente()
         return actual
 
 
@@ -161,15 +162,18 @@ class ListaNoOrdenada:
              if actual.obtenerConexion():
                 Conexion = []
                 Conexion = actual.obtenerConexion()
-                Filas = (len(Conexion) / 4).is_integer()
-                for i in range(Filas):
-                    if Conexion[i+1] == IdRegla:
+                #Filas = (len(Conexion) / 4).is_integer()
+                #for i in range(Filas):
+                for i in range(len(Conexion)):
+                    cnx=[]
+                    cnx =Conexion[i]
+                    if cnx[1] == IdRegla:
                         #print("Encontré Conexion Regla: " + actual.obtenerId())
                         Hijos = []
                         Hijos = actual.obtenerHijos()
                         #print("hijos: ")
                         #print(Hijos)
-                        if (Hijos):
+                        if (actual.obtenerHijos()):
                             for j in range (len(Hijos)):
                                 #print("Hijo: "+Hijos[j])
                                 actual2 = self.cabeza

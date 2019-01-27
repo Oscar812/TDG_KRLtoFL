@@ -176,7 +176,6 @@ class ElementosXML:
 
     def Patrones2(self, Id, Lista, Dic, Ind):
         Sec=1
-        print("Estoy en patrones2")
         if Ind == 'Regla':
             actual = Lista.cabeza
             while actual != None:
@@ -294,17 +293,14 @@ class ElementosXML:
         modActual= Modelo.cabeza
         regla=[]
         while(dicActual != None):
-            regla=dicActual.obtenerPatron()
+            regla.append(dicActual.obtenerPatron())
             dicActual=dicActual.obtenerSiguiente()
-        print (regla)
-        print("Esto buscando")
-        dicActual=Dic.cabeza
         while(modActual != None):
-            print(modActual.obtenerPatron())
-            if (modActual.obtenerPatron() == regla):
-                print("Cumple")
-                print(dicActual.obtenerPatron())
-                print (modActual.obtenerPatron())
+            for i in range(len(regla)):
+                if (modActual.obtenerPatron() == regla[i]):
+                    print("Cumple")
+                    #print(dicActual.obtenerPatron())
+                    #print (modActual.obtenerPatron())
             modActual=modActual.obtenerSiguiente()
 
 

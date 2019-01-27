@@ -43,7 +43,7 @@ DicReg=Elementos.LLenarDic(Lista,"Regla")
 #DicReg.Imprimir()
 #print("__________Diccionario Modelo_______________")
 DicMod=Elementos.LLenarDic(ListaModelo,"Modelo")
-#DicMod.Imprimir()
+DicMod.Imprimir()
 #DicMod.Imprimir()
 Elementos.buscarReglaModelo(DicReg, DicMod)
 

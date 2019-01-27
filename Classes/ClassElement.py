@@ -289,6 +289,28 @@ class ElementosXML:
         else:
             return False
 
+    def buscarReglaModelo(self, Dic, Modelo):
+        dicActual=Dic.cabeza
+        modActual= Modelo.cabeza
+        regla=[]
+        while(dicActual != None):
+            regla=dicActual.obtenerPatron()
+            dicActual=dicActual.obtenerSiguiente()
+        print (regla)
+        print("Esto buscando")
+        dicActual=Dic.cabeza
+        while(modActual != None):
+            print(modActual.obtenerPatron())
+            if (modActual.obtenerPatron() == regla):
+                print("Cumple")
+                print(dicActual.obtenerPatron())
+                print (modActual.obtenerPatron())
+            modActual=modActual.obtenerSiguiente()
+
+
+
+
+
 
 
 

@@ -38,13 +38,14 @@ Elementos.AsigRegla(ListaModelo)
 #print("__________Modelo_______________")
 #ListaModelo.Imprimir()
 print("__________Diccionario Reglas_______________")
-#DicReg=Elementos.LLenarDic(Lista,"Regla")
+DicReg=Elementos.LLenarDic(Lista,"Regla")
 #Elementos.LLenarDic(Lista,"Regla")
 #DicReg.Imprimir()
 #print("__________Diccionario Modelo_______________")
 DicMod=Elementos.LLenarDic(ListaModelo,"Modelo")
-DicMod.Imprimir()
 #DicMod.Imprimir()
+#DicMod.Imprimir()
+Elementos.buscarReglaModelo(DicReg, DicMod)
 
 
 

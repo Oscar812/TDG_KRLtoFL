@@ -148,25 +148,35 @@ class ElementosXML:
             actual = actual.obtenerSiguiente()
 
 
-    def LLenarDic(self, Lista, Dic, Tipo):
+    def LLenarDic(self, Lista, Tipo):
             Sec =1
+            Dic = []
+            DicDef = ClassDictionary.ListaDictionary()
             if Tipo=="Regla":
                 if (Lista.obtenerReglas()):
                     Regla = []
                     Regla= Lista.obtenerReglas()
                     for i in range(len(Regla)):
                         Ind = 'Regla'
-                        self.Patrones2(Regla[i], Lista, Dic, Ind)
+                        Dic.append(ClassDictionary.ListaDictionary())
+                        self.Patrones2(Regla[i], Lista, Dic[i], Ind)
+                        while (self.obtenerDatos2(Lista, Dic[i])):
+                            Sec += 1
+                        Nodo=Dic[i].cabeza
+                        DicDef.agregar(Nodo.obtenerSec(),Nodo.obtenerPatron(),Nodo.obtenerId(),Regla[i])
             else:
-                self.Patrones2("", Lista, Dic, Tipo)
-
-            while (self.obtenerDatos2(Lista, Dic)):
-                Sec += 1
-            return (Dic)
+                print("Entre por el modelo")
+                Dic.append(ClassDictionary.ListaDictionary())
+                self.Patrones2("", Lista, Dic[0], Tipo)
+                while (self.obtenerDatos2(Lista, Dic[0])):
+                    Sec += 1
+                DicDef=Dic[0]
+            return (DicDef)
 
 
     def Patrones2(self, Id, Lista, Dic, Ind):
         Sec=1
+        print("Estoy en patrones2")
         if Ind == 'Regla':
             actual = Lista.cabeza
             while actual != None:
@@ -176,7 +186,7 @@ class ElementosXML:
                     Ids= []
                     Patron.append(actual.obtenerTipo())
                     Ids.append(actual.obtenerId())
-                    Dic.agregar(Sec,Patron,Ids)
+                    Dic.agregar(Sec,Patron,Ids,Id)
                 actual = actual.obtenerSiguiente()
         else:
             actual = ClassList.Nodo()
@@ -184,45 +194,38 @@ class ElementosXML:
             while actual != None:
                 Patron = []
                 Ids = []
+                Regla = []
                 Patron.append(actual.obtenerTipo())
                 Ids.append(actual.obtenerId())
-                Dic.agregar(Sec,Patron,Ids)
+                Dic.agregar(Sec,Patron,Ids,Regla)
                 actual = actual.obtenerSiguiente()
-        #return Dic
 
 
     def obtenerDatos2(self, Lista, Dic):
-        #DicUltimReg = ClassDictionary.Nodo()
+        DicNewReg = ClassDictionary.Nodo()
         DicActual = Dic.cabeza
         DicUltimReg = Dic.cabeza
         Sec = DicUltimReg.obtenerSec()
-        Patron = []
-        Ids = []
         swp=0
         while DicActual != None:
             if DicActual.obtenerSec()== Sec:
                 New = []
+                Patron = []
+                Ids = []
                 actual = Lista.cabeza
-                Patron = DicActual.obtenerPatron()
-                Ids = DicActual.obtenerId()
+                Patron=(DicActual.obtenerPatron().copy())
+                Ids=(DicActual.obtenerId().copy())
                 long = len(Ids)
                 sw = 0
                 while actual != None and sw==0:
                     if (actual.obtenerId() == Ids[0]):
                         New=[]
-                        #print("Voy a buscar ID:"+str(Ids[0]))
                         New=self.Analizarobjeto(Lista, Ids[0], 'I')
                         if (New):
-                            #print("Antes: "+str(Patron))
                             Patron.insert(0,New[0][0])
-                            #print("Despues: " + str(Patron))
                             Ids.insert(0,New[0][1])
-                            #print("Patron: "+str(Patron))
-                            #print("BUSCAR: Id: "+str(Ids)+str(Dic.Buscar(Ids)))
                             if not(Dic.Buscar(Ids,Sec+1)):
-                                #print("No existe lo guardo")
-                                Dic.agregar(Sec+1, Patron, Ids)
-                            #Dic.Imprimir()
+                                Dic.agregar(Sec+1, Patron, Ids,"")
                             sw = 1
                             break
                     if (actual.obtenerId() == Ids[long-1] and sw==0):
@@ -232,8 +235,7 @@ class ElementosXML:
                             Patron.append(New[0][0])
                             Ids.append(New[0][1])
                             if not(Dic.Buscar(Ids,Sec+1)):
-                                #print("No existe lo guardo")
-                                Dic.agregar(Sec + 1, Patron, Ids)
+                                Dic.agregar(Sec + 1, Patron, Ids,"")
                             sw = 1
                             break
                     actual = actual.obtenerSiguiente()

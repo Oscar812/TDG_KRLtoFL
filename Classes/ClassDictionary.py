@@ -6,10 +6,12 @@ class Nodo:
             self.Secuencia = args[0]
             self.Patron = args[1]
             self.Id = args[2]
+            self.Regla = args[3]
         else:
             self.Secuencia = ""
             self.Patron = []
             self.Id = []
+            self.Regla = ""
         self.siguiente = None
 
     def obtenerSiguiente(self):
@@ -33,14 +35,22 @@ class Nodo:
     def obtenerId(self):
         return self.Id
 
-    def asignarDato(self,Sec,Patron,Id):
+    def obtenerRegla(self):
+        return self.Regla
+
+    def asignarDato(self,Sec,Patron,Id,Regla):
         self.Secuencia = Sec
         self.Patron = Patron
         self.Id = Id
+        self.Regla=Regla
 
     def asignarSiguiente(self,nuevosiguiente):
         self.siguiente = nuevosiguiente
 
+    def mostrarNodo(self):
+        print("Sec: "+str(self.obtenerSec()))
+        print("Patron: " + str(self.obtenerPatron()))
+        print("Id: " + str(self.obtenerId()))
 
 class ListaDictionary:
 
@@ -53,9 +63,13 @@ class ListaDictionary:
     def estaVacia(self):
         return self.cabeza == None
 
-    def agregar(self, item1, item2, item3):
-        temp = Nodo(item1, item2, item3)
-        temp.asignarDato(item1, item2, item3)
+    def agregar(self, item1, item2, item3, item4):
+        temp = Nodo(item1, item2, item3,item4)
+        #temp.asignarDato(item1, item2, item3,item4)
+        #temp.mostrarNodo()
+        #print("Estoy en agregar")
+        #print("guarde: ")
+        #temp.mostrarNodo()
         temp.asignarSiguiente(self.cabeza)
         self.cabeza = temp
 
@@ -67,6 +81,7 @@ class ListaDictionary:
             print("Patron: " + str(actual.obtenerPatron()))
             #print(actual.obtenerPatron())
             print("Id: " + str(actual.obtenerId()))
+            print("Regla: " + str(actual.obtenerRegla()))
             #print(actual.obtenerId())
             actual = actual.obtenerSiguiente()
 
@@ -78,32 +93,18 @@ class ListaDictionary:
         return  ultimo
 
     def Buscar(self, Id, Sec):
-        actual = Nodo("", "", "")
+        #actual = Nodo("", "", "","")
         actual = self.cabeza
         encontrado = False
+        #print("Id :" + str(Id))
         while actual != None and not encontrado:
             if actual.obtenerId() == Id and actual.obtenerSec()==Sec:
+                #print("Encontre :" +str(Id))
+                #print("Secuencia: "+str(Sec))
                 encontrado = True
             else:
                 actual = actual.obtenerSiguiente()
         return encontrado
 
-
-class ListaDiccionario:
-    def __init__(self, filas, columnas):
-        #self.filas
-        #self.columnas
-        #self.Matriz = [[i for i in range(self.filas)] for j in range(self.columnas)]
-        self.columnas = []
-        self.Matriz = [self.columnas]
-
-    def setDato(self, sec, dato, ids, fila):
-        i = 0
-        self.Matriz[fila][0] = sec
-        self.Matriz[fila][1] = dato
-        self.Matriz[fila][2] = ids
-
-    def obtenerDato(self):
-        return self.Matriz
 
 

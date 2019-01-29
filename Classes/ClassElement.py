@@ -139,6 +139,7 @@ class ElementosXML:
                     i+1
             actual = actual.obtenerSiguiente()
 
+
     def AsigRegla(self,Lista):
         actual = Lista.cabeza
         while actual != None:
@@ -157,13 +158,15 @@ class ElementosXML:
                     Regla = []
                     Regla= Lista.obtenerReglas()
                     for i in range(len(Regla)):
+                        Etiquetas = []
                         Ind = 'Regla'
                         Dic.append(ClassDictionary.ListaDictionary())
                         self.Patrones2(Regla[i], Lista, Dic[i], Ind)
                         while (self.obtenerDatos2(Lista, Dic[i])):
                             Sec += 1
                         Nodo=Dic[i].cabeza
-                        DicDef.agregar(Nodo.obtenerSec(),Nodo.obtenerPatron(),Nodo.obtenerId(),Regla[i])
+                        Etiquetas= self.asignarEtiqueta(Lista, Regla[i])
+                        DicDef.agregar(Nodo.obtenerSec(),Nodo.obtenerPatron(),Nodo.obtenerId(),Regla[i], Etiquetas)
             else:
                 print("Entre por el modelo")
                 Dic.append(ClassDictionary.ListaDictionary())
@@ -172,6 +175,20 @@ class ElementosXML:
                     Sec += 1
                 DicDef=Dic[0]
             return (DicDef)
+
+    def asignarEtiqueta(self, Lista, idRegla):
+        actual= Lista.cabeza
+        etiqueta=[]
+        while(actual != None):
+            if actual.obtenerParentName()=="Target" and actual.obtenerRegla == idRegla:
+                objetos=[]
+                Ids= []
+                objetos.append(actual.obtenerTipo())
+                Ids.append(actual.obtenerId())
+                etiqueta= [objetos,Ids]
+            actual = actual.obtenerSiguiente()
+        return etiqueta
+
 
 
     def Patrones2(self, Id, Lista, Dic, Ind):
@@ -185,7 +202,7 @@ class ElementosXML:
                     Ids= []
                     Patron.append(actual.obtenerTipo())
                     Ids.append(actual.obtenerId())
-                    Dic.agregar(Sec,Patron,Ids,Id)
+                    Dic.agregar(Sec,Patron,Ids,Id,"")
                 actual = actual.obtenerSiguiente()
         else:
             actual = ClassList.Nodo()
@@ -196,7 +213,7 @@ class ElementosXML:
                 Regla = []
                 Patron.append(actual.obtenerTipo())
                 Ids.append(actual.obtenerId())
-                Dic.agregar(Sec,Patron,Ids,Regla)
+                Dic.agregar(Sec,Patron,Ids,Regla,"")
                 actual = actual.obtenerSiguiente()
 
 
@@ -224,7 +241,7 @@ class ElementosXML:
                             Patron.insert(0,New[0][0])
                             Ids.insert(0,New[0][1])
                             if not(Dic.Buscar(Ids,Sec+1)):
-                                Dic.agregar(Sec+1, Patron, Ids,"")
+                                Dic.agregar(Sec+1, Patron, Ids,"","")
                             sw = 1
                             break
                     if (actual.obtenerId() == Ids[long-1] and sw==0):
@@ -234,9 +251,10 @@ class ElementosXML:
                             Patron.append(New[0][0])
                             Ids.append(New[0][1])
                             if not(Dic.Buscar(Ids,Sec+1)):
-                                Dic.agregar(Sec + 1, Patron, Ids,"")
+                                Dic.agregar(Sec + 1, Patron, Ids,"","")
                             sw = 1
                             break
+
                     actual = actual.obtenerSiguiente()
                 if sw!=0:
                     swp +=1
@@ -255,6 +273,7 @@ class ElementosXML:
         while actual!= None and sw==0:
             if actual.obtenerId()==Id:
                 conexion = actual.obtenerConexion()
+                hijos = actual.obtenerHijos()
                 for i in range (len(conexion)):
                     Conx = conexion[i]
                     RegDic = []
@@ -282,6 +301,14 @@ class ElementosXML:
                             Nodo = Lista.Buscar(relacion[1])
                             RegDic.insert(0,[Nodo.obtenerTipo(), relacion[1]])
                             sw=1
+                for i in range(len(hijos)):
+                    RegDic = []
+                    if (hijos):
+                        Nodo=Lista.Buscar(hijos[i])
+                        RegDic.insert(0, [Nodo.obtenerTipo(), hijos[i]])
+                        #print(RegDic)
+                sw = 1
+                break
             actual=actual.obtenerSiguiente()
         if sw!=0:
             return RegDic

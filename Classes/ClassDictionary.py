@@ -7,11 +7,13 @@ class Nodo:
             self.Patron = args[1]
             self.Id = args[2]
             self.Regla = args[3]
+            self.Etiqueta = args[4]
         else:
             self.Secuencia = ""
             self.Patron = []
             self.Id = []
             self.Regla = ""
+            self.Etiqueta= []
         self.siguiente = None
 
     def obtenerSiguiente(self):
@@ -23,6 +25,9 @@ class Nodo:
     def setPatron(self, Patron):
         self.Patron.extend([Patron])
 
+    def setEtiqueta(self, Etiqueta):
+        self.Etiqueta.extend([Etiqueta])
+
     def setId(self, Id):
         self.Id.extend([Id])
 
@@ -31,6 +36,9 @@ class Nodo:
 
     def obtenerPatron(self):
         return self.Patron
+
+    def obtenerEtiqueta(self):
+        return self.Etiqueta
 
     def obtenerId(self):
         return self.Id
@@ -63,8 +71,8 @@ class ListaDictionary:
     def estaVacia(self):
         return self.cabeza == None
 
-    def agregar(self, item1, item2, item3, item4):
-        temp = Nodo(item1, item2, item3,item4)
+    def agregar(self, item1, item2, item3, item4,item5):
+        temp = Nodo(item1, item2, item3,item4,item5)
         #temp.asignarDato(item1, item2, item3,item4)
         #temp.mostrarNodo()
         #print("Estoy en agregar")
@@ -82,6 +90,8 @@ class ListaDictionary:
             #print(actual.obtenerPatron())
             print("Id: " + str(actual.obtenerId()))
             print("Regla: " + str(actual.obtenerRegla()))
+            print("Etiqueta: " + str(actual.obtenerEtiqueta()))
+
             #print(actual.obtenerId())
             actual = actual.obtenerSiguiente()
 

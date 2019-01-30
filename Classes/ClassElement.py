@@ -176,7 +176,7 @@ class ElementosXML:
                 DicDef=Dic[0]
             return (DicDef)
 
-    def asignarEtiqueta(self, Lista, idRegla):
+        def asignarEtiqueta(self, Lista, idRegla):
         actual= Lista.cabeza
         etiqueta=[]
         while(actual != None):
@@ -202,7 +202,7 @@ class ElementosXML:
                     Ids= []
                     Patron.append(actual.obtenerTipo())
                     Ids.append(actual.obtenerId())
-                    Dic.agregar(Sec,Patron,Ids,Id,"")
+                    Dic.agregar(Sec,Patron,Ids,Id)
                 actual = actual.obtenerSiguiente()
         else:
             actual = ClassList.Nodo()
@@ -213,102 +213,110 @@ class ElementosXML:
                 Regla = []
                 Patron.append(actual.obtenerTipo())
                 Ids.append(actual.obtenerId())
-                Dic.agregar(Sec,Patron,Ids,Regla,"")
+                Dic.agregar(Sec,Patron,Ids,Regla)
                 actual = actual.obtenerSiguiente()
 
 
     def obtenerDatos2(self, Lista, Dic):
-        DicNewReg = ClassDictionary.Nodo()
         DicActual = Dic.cabeza
         DicUltimReg = Dic.cabeza
         Sec = DicUltimReg.obtenerSec()
         swp=0
         while DicActual != None:
             if DicActual.obtenerSec()== Sec:
-                New = []
                 Patron = []
                 Ids = []
                 actual = Lista.cabeza
-                Patron=(DicActual.obtenerPatron().copy())
-                Ids=(DicActual.obtenerId().copy())
-                long = len(Ids)
                 sw = 0
-                while actual != None and sw==0:
-                    if (actual.obtenerId() == Ids[0]):
-                        New=[]
-                        New=self.Analizarobjeto(Lista, Ids[0], 'I')
-                        if (New):
-                            Patron.insert(0,New[0][0])
-                            Ids.insert(0,New[0][1])
-                            if not(Dic.Buscar(Ids,Sec+1)):
-                                Dic.agregar(Sec+1, Patron, Ids,"","")
-                            sw = 1
-                            break
-                    if (actual.obtenerId() == Ids[long-1] and sw==0):
-                        New=[]
-                        New = self.Analizarobjeto(Lista, Ids[long-1], 'D')
-                        if (New):
-                            Patron.append(New[0][0])
-                            Ids.append(New[0][1])
-                            if not(Dic.Buscar(Ids,Sec+1)):
-                                Dic.agregar(Sec + 1, Patron, Ids,"","")
-                            sw = 1
-                            break
-
-                    actual = actual.obtenerSiguiente()
+                Patron = (DicActual.obtenerPatron().copy())
+                Ids = (DicActual.obtenerId().copy())
+                long = len(Ids)
+                New = []
+                New = self.Analizarobjeto(Lista, Ids[0], 'I', Dic, Ids)
+                while(New):
+                    Patron.insert(0,New[0][0])
+                    Ids.insert(0,New[0][1])
+                    Dic.agregar(len(Patron), Patron, Ids,"")
+                    sw = 1
+                    Patron = (DicActual.obtenerPatron().copy())
+                    Ids = (DicActual.obtenerId().copy())
+                    long = len(Ids)
+                    New = []
+                    New = self.Analizarobjeto(Lista, Ids[0], 'I', Dic, Ids)
+                Patron = (DicActual.obtenerPatron().copy())
+                Ids = (DicActual.obtenerId().copy())
+                long = len(Ids)
+                New = []
+                New = self.Analizarobjeto(Lista, Ids[long - 1], 'D', Dic, Ids)
+                while (New):
+                    Patron.append(New[0][0])
+                    Ids.append(New[0][1])
+                    Dic.agregar(len(Patron), Patron, Ids,"")
+                    sw = 1
+                    Patron = (DicActual.obtenerPatron().copy())
+                    Ids = (DicActual.obtenerId().copy())
+                    long = len(Ids)
+                    New = []
+                    New = self.Analizarobjeto(Lista, Ids[long - 1], 'D', Dic, Ids)
                 if sw!=0:
                     swp +=1
             DicActual = DicActual.obtenerSiguiente()
         if swp > 0:
-            return Dic
+            return True
         else:
             return False
 
-    def Analizarobjeto(self, Lista, Id, Orden):
+    def Analizarobjeto(self, Lista, Id, Orden, Dic, Ids):
         actual = Lista.cabeza
         RegDic = []
         conexion = []
         relacion = []
+        IDs2 = Ids.copy()
         sw=0
-        while actual!= None and sw==0:
+        encontrado = False
+        while actual!= None and sw==0 and not encontrado:
             if actual.obtenerId()==Id:
-                conexion = actual.obtenerConexion()
-                hijos = actual.obtenerHijos()
+                conexion = actual.obtenerConexion().copy()
+                i=0
                 for i in range (len(conexion)):
                     Conx = conexion[i]
                     RegDic = []
+                    IDs2 = Ids.copy()
                     if (Conx[3] == "Target" and Orden =='I'):
                         Nodo=Lista.Buscar(Conx[2])
-                        RegDic.insert((0),[Nodo.obtenerTipo(),Conx[2]])
-                        #print(RegDic)
-                        sw=1
-                        break
+                        IDs2.insert(0,Conx[2])
+                        if not(Dic.Buscar(IDs2)):
+                            sw=1
+                            RegDic.insert((0),[Nodo.obtenerTipo(),Conx[2]])
+                            break
                     else:
                         if (Conx[3] == "Source" and Orden=='D'):
                             Nodo = Lista.Buscar(Conx[2])
-                            RegDic.insert(0,[Nodo.obtenerTipo(), Conx[2]])
-                            sw=1
-                            break
+                            IDs2 = Ids.copy()
+                            IDs2.append(Conx[2])
+                            if not (Dic.Buscar(IDs2)):
+                                RegDic.insert(0,[Nodo.obtenerTipo(), Conx[2]])
+                                sw=1
+                                break
                 if sw == 0:
                     RegDic = []
+                    IDs2 = Ids.copy()
                     if actual.obtenerRelacion():
-                        relacion = actual.obtenerRelacion()
+                        relacion = actual.obtenerRelacion().copy()
                         if Orden == 'I' and relacion[0]!= ' ':
                             Nodo = Lista.Buscar(relacion[0])
-                            RegDic.insert(0,[Nodo.obtenerTipo(), relacion[0]])
-                            sw=1
+                            IDs2.insert(0,relacion[0])
+                            if not (Dic.Buscar(IDs2)):
+                                RegDic.insert(0,[Nodo.obtenerTipo(), relacion[0]])
+                                sw=1
                         if Orden == 'D' and relacion[1]!= ' ':
+                            IDs2 = Ids.copy()
                             Nodo = Lista.Buscar(relacion[1])
-                            RegDic.insert(0,[Nodo.obtenerTipo(), relacion[1]])
-                            sw=1
-                for i in range(len(hijos)):
-                    RegDic = []
-                    if (hijos):
-                        Nodo=Lista.Buscar(hijos[i])
-                        RegDic.insert(0, [Nodo.obtenerTipo(), hijos[i]])
-                        #print(RegDic)
-                sw = 1
-                break
+                            IDs2.append(relacion[1])
+                            if not (Dic.Buscar(IDs2)):
+                                RegDic.insert(0,[Nodo.obtenerTipo(), relacion[1]])
+                                sw=1
+                encontrado = True
             actual=actual.obtenerSiguiente()
         if sw!=0:
             return RegDic

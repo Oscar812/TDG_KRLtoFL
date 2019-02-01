@@ -220,8 +220,6 @@ class ElementosXML:
     def obtenerDatos2(self, Lista, Dic):
         DicActual = Dic.cabeza
         DicUltimReg = Dic.cabeza
-        print("J")
-        print(DicUltimReg.obtenerSec())
         Sec = DicUltimReg.obtenerSec()
         swp=0
         while DicActual != None:

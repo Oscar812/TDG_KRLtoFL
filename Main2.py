@@ -41,7 +41,7 @@ print("__________Diccionario Reglas_______________")
 DicReg=Elementos.LLenarDic(Lista,"Regla")
 #Elementos.LLenarDic(Lista,"Regla")
 DicReg= Elementos.asignarEtiqueta(Lista, DicReg)
-#DicReg.Imprimir()
+DicReg.Imprimir()
 
 #print("__________Diccionario Modelo_______________")
 DicMod=Elementos.LLenarDic(ListaModelo,"Modelo")

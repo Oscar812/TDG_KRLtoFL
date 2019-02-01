@@ -189,8 +189,8 @@ class ElementosXML:
                 if actual.obtenerParentName()=="Target" and actual.obtenerRegla() == idRegla:
                     objetos=[]
                     Ids= []
-                    print ("Entre al if")
-                    print(actual.obtenerTipo())
+                    print (actual.obtenerId())
+                    print(actual.obtenerNombre())
                     objetos.append(actual.obtenerTipo())
                     Ids.append(actual.obtenerId())
                     etiqueta= [objetos,Ids]

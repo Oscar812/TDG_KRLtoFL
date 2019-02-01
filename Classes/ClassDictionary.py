@@ -102,13 +102,13 @@ class ListaDictionary:
             actual=actual.obtenerSiguiente()
         return  ultimo
 
-    def Buscar(self, Id, Sec):
+    def Buscar(self, Id):
         #actual = Nodo("", "", "","")
         actual = self.cabeza
         encontrado = False
         #print("Id :" + str(Id))
         while actual != None and not encontrado:
-            if actual.obtenerId() == Id and actual.obtenerSec()==Sec:
+            if actual.obtenerId() == Id:
                 #print("Encontre :" +str(Id))
                 #print("Secuencia: "+str(Sec))
                 encontrado = True

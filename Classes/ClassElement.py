@@ -176,7 +176,7 @@ class ElementosXML:
                 DicDef=Dic[0]
             return (DicDef)
 
-        def asignarEtiqueta(self, Lista, idRegla):
+    def asignarEtiqueta(self, Lista, idRegla):
         actual= Lista.cabeza
         etiqueta=[]
         while(actual != None):
@@ -202,7 +202,7 @@ class ElementosXML:
                     Ids= []
                     Patron.append(actual.obtenerTipo())
                     Ids.append(actual.obtenerId())
-                    Dic.agregar(Sec,Patron,Ids,Id)
+                    Dic.agregar(Sec,Patron,Ids,Id,"")
                 actual = actual.obtenerSiguiente()
         else:
             actual = ClassList.Nodo()
@@ -213,13 +213,15 @@ class ElementosXML:
                 Regla = []
                 Patron.append(actual.obtenerTipo())
                 Ids.append(actual.obtenerId())
-                Dic.agregar(Sec,Patron,Ids,Regla)
+                Dic.agregar(Sec,Patron,Ids,Regla,"")
                 actual = actual.obtenerSiguiente()
 
 
     def obtenerDatos2(self, Lista, Dic):
         DicActual = Dic.cabeza
         DicUltimReg = Dic.cabeza
+        print("J")
+        print(DicUltimReg.obtenerSec())
         Sec = DicUltimReg.obtenerSec()
         swp=0
         while DicActual != None:
@@ -236,7 +238,7 @@ class ElementosXML:
                 while(New):
                     Patron.insert(0,New[0][0])
                     Ids.insert(0,New[0][1])
-                    Dic.agregar(len(Patron), Patron, Ids,"")
+                    Dic.agregar(len(Patron), Patron, Ids,"","")
                     sw = 1
                     Patron = (DicActual.obtenerPatron().copy())
                     Ids = (DicActual.obtenerId().copy())
@@ -251,7 +253,7 @@ class ElementosXML:
                 while (New):
                     Patron.append(New[0][0])
                     Ids.append(New[0][1])
-                    Dic.agregar(len(Patron), Patron, Ids,"")
+                    Dic.agregar(len(Patron), Patron, Ids,"", "")
                     sw = 1
                     Patron = (DicActual.obtenerPatron().copy())
                     Ids = (DicActual.obtenerId().copy())

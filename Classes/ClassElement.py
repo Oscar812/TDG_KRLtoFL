@@ -178,28 +178,30 @@ class ElementosXML:
 
     def asignarEtiqueta(self, Lista, Dic):
         DicActual=Dic.cabeza
-        actual= Lista.cabeza
+
+        DicDef = ClassDictionary.ListaDictionary()
         #dicActual = Dic.cabeza
         idRegla=0
         etiqueta=[]
         while (DicActual !=None):
             idRegla=DicActual.obtenerRegla()
-
+            actual = Lista.cabeza
             while(actual != None):
                 if actual.obtenerParentName()=="Target" and actual.obtenerRegla() == idRegla:
                     objetos2=[]
                     Ids= []
                     objetos =""
-                    print (actual.obtenerId())
-                    print(actual.obtenerNombre())
                     objetos=(actual.obtenerNombre())
                     objetos2= objetos.split(" ")
-                    print(objetos2)
                     Ids.append(actual.obtenerId())
-                    etiqueta= [objetos,Ids]
+                    etiqueta= [objetos2,Ids]
+                    DicDef.agregar(DicActual.obtenerSec(), DicActual.obtenerPatron(), DicActual.obtenerId(),
+                                   DicActual.obtenerRegla(), etiqueta)
                 actual = actual.obtenerSiguiente()
             DicActual= DicActual.obtenerSiguiente()
-        return Dic
+
+
+        return DicDef
 
 
 

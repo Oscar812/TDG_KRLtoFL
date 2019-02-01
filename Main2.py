@@ -40,12 +40,14 @@ Elementos.AsigRegla(ListaModelo)
 print("__________Diccionario Reglas_______________")
 DicReg=Elementos.LLenarDic(Lista,"Regla")
 #Elementos.LLenarDic(Lista,"Regla")
-DicReg.Imprimir()
+DicReg= Elementos.asignarEtiqueta(Lista, DicReg)
+#DicReg.Imprimir()
+
 #print("__________Diccionario Modelo_______________")
 DicMod=Elementos.LLenarDic(ListaModelo,"Modelo")
 #DicMod.Imprimir()
 #DicMod.Imprimir()
-Elementos.buscarReglaModelo(DicReg, DicMod)
+#Elementos.buscarReglaModelo(DicReg, DicMod)
 
 
 

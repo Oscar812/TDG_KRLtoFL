@@ -165,8 +165,8 @@ class ElementosXML:
                         while (self.obtenerDatos2(Lista, Dic[i])):
                             Sec += 1
                         Nodo=Dic[i].cabeza
-                        Etiquetas= self.asignarEtiqueta(Lista, Regla[i])
-                        DicDef.agregar(Nodo.obtenerSec(),Nodo.obtenerPatron(),Nodo.obtenerId(),Regla[i], Etiquetas)
+                        #Etiquetas= self.asignarEtiqueta(Lista, Regla[i])
+                        DicDef.agregar(Nodo.obtenerSec(),Nodo.obtenerPatron(),Nodo.obtenerId(),Regla[i], "")
             else:
                 print("Entre por el modelo")
                 Dic.append(ClassDictionary.ListaDictionary())
@@ -176,18 +176,28 @@ class ElementosXML:
                 DicDef=Dic[0]
             return (DicDef)
 
-    def asignarEtiqueta(self, Lista, idRegla):
+    def asignarEtiqueta(self, Lista, Dic):
+        DicActual=Dic.cabeza
         actual= Lista.cabeza
+        #dicActual = Dic.cabeza
+        idRegla=0
         etiqueta=[]
-        while(actual != None):
-            if actual.obtenerParentName()=="Target" and actual.obtenerRegla == idRegla:
-                objetos=[]
-                Ids= []
-                objetos.append(actual.obtenerTipo())
-                Ids.append(actual.obtenerId())
-                etiqueta= [objetos,Ids]
-            actual = actual.obtenerSiguiente()
-        return etiqueta
+        while (DicActual !=None):
+            idRegla=DicActual.obtenerRegla()
+
+            while(actual != None):
+                if actual.obtenerParentName()=="Target" and actual.obtenerRegla() == idRegla:
+                    objetos=[]
+                    Ids= []
+                    print ("Entre al if")
+                    print(actual.obtenerTipo())
+                    objetos.append(actual.obtenerTipo())
+                    Ids.append(actual.obtenerId())
+                    etiqueta= [objetos,Ids]
+                actual = actual.obtenerSiguiente()
+            DicActual= DicActual.obtenerSiguiente()
+        return Dic
+
 
 
 

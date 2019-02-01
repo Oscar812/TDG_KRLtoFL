@@ -187,11 +187,14 @@ class ElementosXML:
 
             while(actual != None):
                 if actual.obtenerParentName()=="Target" and actual.obtenerRegla() == idRegla:
-                    objetos=[]
+                    objetos2=[]
                     Ids= []
+                    objetos =""
                     print (actual.obtenerId())
                     print(actual.obtenerNombre())
-                    objetos.append(actual.obtenerTipo())
+                    objetos=(actual.obtenerNombre())
+                    objetos2= objetos.split(" ")
+                    print(objetos2)
                     Ids.append(actual.obtenerId())
                     etiqueta= [objetos,Ids]
                 actual = actual.obtenerSiguiente()

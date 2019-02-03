@@ -352,13 +352,14 @@ class ElementosXML:
 
         while(modActual != None):
             for i in range(len(regla)):
+                traduccion=[]
                 if (modActual.obtenerPatron() == regla[i]):
                     print("Cumple")
-                    for j in range (len(regla)):
-
-                        Auxiliar=ListaModelo.Buscar(modActual.obtenerId[j])
-                        traduccion.append(Auxiliar.obtenerNombre().copy())
-                    print (traduccion)
+                    for j in range (len(regla[i])):
+                        print (len(regla[1]))
+                        Auxiliar=ListaModelo.Buscar(modActual.obtenerId()[j])
+                        traduccion.append(Auxiliar.obtenerNombre())
+                    print(traduccion)
 
 
                     #print(dicActual.obtenerPatron())

@@ -346,20 +346,38 @@ class ElementosXML:
         regla=[]
         etiqueta=[]
         while(dicActual != None):
-            regla.append(dicActual.obtenerPatron())
-            etiqueta.append(dicActual.obtenerEtiqueta())
+            regla.append(dicActual.obtenerPatron().copy())
+            etiqueta.append(dicActual.obtenerEtiqueta().copy())
             dicActual=dicActual.obtenerSiguiente()
 
         while(modActual != None):
+            ptraducido = []
             for i in range(len(regla)):
-                traduccion=[]
+
                 if (modActual.obtenerPatron() == regla[i]):
-                    print("Cumple")
+                    etiqueta2=etiqueta[i][i].copy()
+                    k = 0
                     for j in range (len(regla[i])):
-                        print (len(regla[1]))
-                        Auxiliar=ListaModelo.Buscar(modActual.obtenerId()[j])
-                        traduccion.append(Auxiliar.obtenerNombre())
-                    print(traduccion)
+
+                        traduccion = []
+                        Auxiliar = ListaModelo.Buscar(modActual.obtenerId()[j])
+
+
+                        if (Auxiliar.obtenerNombre() != ""):
+                            if ((etiqueta2[k].find("*"))):
+                                traduccion.insert(k,Auxiliar.obtenerNombre())
+                                k= k+1
+                            else:
+                                traduccion.insert(k,etiqueta2[k])
+                                k = k + 1
+                                #print (Auxiliar.obtenerNombre())
+                        #print(traduccion)
+                        if traduccion:
+                            ptraducido.append(traduccion)
+                    print(ptraducido)
+
+
+
 
 
                     #print(dicActual.obtenerPatron())

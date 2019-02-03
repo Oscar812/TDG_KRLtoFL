@@ -338,17 +338,29 @@ class ElementosXML:
         else:
             return False
 
-    def buscarReglaModelo(self, Dic, Modelo):
+    def buscarReglaModelo(self, Dic, Modelo, ListaModelo):
+        Auxiliar = ClassList.Nodo("", "", "", "")
+        traduccion=[]
         dicActual=Dic.cabeza
         modActual= Modelo.cabeza
         regla=[]
+        etiqueta=[]
         while(dicActual != None):
             regla.append(dicActual.obtenerPatron())
+            etiqueta.append(dicActual.obtenerEtiqueta())
             dicActual=dicActual.obtenerSiguiente()
+
         while(modActual != None):
             for i in range(len(regla)):
                 if (modActual.obtenerPatron() == regla[i]):
                     print("Cumple")
+                    for j in range (len(regla)):
+
+                        Auxiliar=ListaModelo.Buscar(modActual.obtenerId[j])
+                        traduccion.append(Auxiliar.obtenerNombre().copy())
+                    print (traduccion)
+
+
                     #print(dicActual.obtenerPatron())
                     #print (modActual.obtenerPatron())
             modActual=modActual.obtenerSiguiente()

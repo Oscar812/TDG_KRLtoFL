@@ -16,6 +16,7 @@ class Nodo:
             self.Etiqueta= []
         self.siguiente = None
 
+
     def obtenerSiguiente(self):
         return self.siguiente
 
@@ -94,12 +95,6 @@ class ListaDictionary:
 
             #print(actual.obtenerId())
             actual = actual.obtenerSiguiente()
-    def AgregarEtiqueta(self,Id,etiqueta):
-        actual= self.cabeza
-        while actual != None:
-            if (actual.obtenerId == Id):
-                self.etiqueta = etiqueta
-            actual.obtenerSiguiente()
 
     def ObtenerUltReg(self):
         actual= self.cabeza

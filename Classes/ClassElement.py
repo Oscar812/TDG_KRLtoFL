@@ -341,6 +341,7 @@ class ElementosXML:
     def buscarReglaModelo(self, Dic, Modelo, ListaModelo):
         Auxiliar = ClassList.Nodo("", "", "", "")
         traduccion=[]
+        DicDef = ClassDictionary.ListaDictionary()
         dicActual=Dic.cabeza
         modActual= Modelo.cabeza
         regla=[]
@@ -374,15 +375,11 @@ class ElementosXML:
                         #print(traduccion)
                         if traduccion:
                             ptraducido.append(traduccion)
+                    DicDef.agregar(modActual.obtenerSec(), modActual.obtenerPatron(), modActual.obtenerId(),
+                                   modActual.obtenerRegla(), ptraducido)
                     print(ptraducido)
-
-
-
-
-
-                    #print(dicActual.obtenerPatron())
-                    #print (modActual.obtenerPatron())
             modActual=modActual.obtenerSiguiente()
+        return (DicDef)
 
 
 

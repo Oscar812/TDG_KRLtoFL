@@ -356,7 +356,7 @@ class ElementosXML:
             for i in range(len(regla)):
 
                 if (modActual.obtenerPatron() == regla[i]):
-                    etiqueta2=etiqueta[i][i].copy()
+                    etiqueta2=etiqueta[i][0].copy()
                     k = 0
                     for j in range (len(regla[i])):
 
@@ -366,6 +366,7 @@ class ElementosXML:
 
                         if (Auxiliar.obtenerNombre() != ""):
                             if ((etiqueta2[k].find("*"))):
+
                                 traduccion.insert(k,Auxiliar.obtenerNombre())
                                 k= k+1
                             else:
@@ -377,7 +378,7 @@ class ElementosXML:
                             ptraducido.append(traduccion)
                     DicDef.agregar(modActual.obtenerSec(), modActual.obtenerPatron(), modActual.obtenerId(),
                                    modActual.obtenerRegla(), ptraducido)
-                    print(ptraducido)
+                    #print(ptraducido)
             modActual=modActual.obtenerSiguiente()
         return (DicDef)
 

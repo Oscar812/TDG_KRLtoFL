@@ -48,7 +48,7 @@ DicMod=Elementos.LLenarDic(ListaModelo,"Modelo")
 #DicMod.Imprimir()
 #DicMod.Imprimir()
 DicMod=Elementos.buscarReglaModelo(DicReg, DicMod,ListaModelo)
-#DicMod.Imprimir()
+DicMod.Imprimir()
 
 
 

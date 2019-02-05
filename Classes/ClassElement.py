@@ -143,7 +143,7 @@ class ElementosXML:
     def AsigRegla(self,Lista):
         actual = Lista.cabeza
         while actual != None:
-            if (actual.obtenerTipo() == "Regla"):
+            if (actual.obtenerTipo() == "Regla" or actual.obtenerTipo() == "ReglaFL"):
                 Lista.AgregarRegla(actual.obtenerId())
                 Lista.SetReglas(actual.obtenerId())
             actual = actual.obtenerSiguiente()
@@ -202,9 +202,6 @@ class ElementosXML:
 
 
         return DicDef
-
-
-
 
     def Patrones2(self, Id, Lista, Dic, Ind):
         Sec=1

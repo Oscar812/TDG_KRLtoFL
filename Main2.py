@@ -30,7 +30,7 @@ DicMod = ClassDictionary.ListaDictionary()
 DicFL = ClassDictionary.ListaDictionary()
 #Lista.Imprimir()
 file2 = "Modelo_prueba.xml"
-file3 = "PruebaFL.xml"
+file3 = "PruebaFL2.xml"
 ListaFL = ClassList.ListaNoOrdenada()
 ListaFL= Elementos.ObtenerElementos(file3,ListaFL)
 Elementos.AsigConexion(ListaFL)
@@ -49,6 +49,7 @@ Elementos.AsigRegla(ListaModelo)
 DicReg=Elementos.LLenarDic(Lista,"Regla")
 Elementos.LLenarDic(Lista,"Regla")
 DicReg= Elementos.asignarEtiqueta(Lista, DicReg, "Regla")
+#DicReg= Elementos.asignarEtiqueta(Lista, DicReg)
 #DicReg.Imprimir()
 #print("__________Diccionario Modelo_______________")
 DicMod=Elementos.LLenarDic(ListaModelo,"Modelo")
@@ -60,6 +61,11 @@ DicMod=Elementos.buscarReglaModelo(DicReg, DicMod, ListaModelo)
 #DicMod=Elementos.buscarReglaModelo(DicFL, DicMod,ListaModelo)
 #DicMod.Imprimir()
 Elementos.ObtenerTrans(DicFL,DicMod)
+#DicFL=Elementos.LLenarDic(ListaFL,"Regla")
+#DicFL= Elementos.asignarEtiqueta(ListaFL, DicFL)
+#DicFL.Imprimir()
+#DicMod.Imprimir()
+#DicMod=Elementos.buscarReglaModelo(DicReg, DicMod,ListaModelo)
 DicMod.Imprimir()
 
 

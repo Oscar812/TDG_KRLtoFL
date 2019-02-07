@@ -478,7 +478,7 @@ class ElementosXML:
                             cont=cont2[Long+1:len(cont2)]'''
                     if (ptraducido):
                         modActual.setTransf(ptraducido)
-                        print("Encontré una traducción")
+                        #print("Encontré una traducción")
             modActual = modActual.obtenerSiguiente()
 
     def ObtenerEqReglaFL(self, idRegla, Lista):
@@ -508,6 +508,7 @@ while(modActual != None):
                         traduccion = []
                         Auxiliar = ListaModelo.Buscar(modActual.obtenerId()[j])
                         if (Auxiliar.obtenerNombre() != ""):
+<<<<<<< HEAD
                             Etiq = etiqueta2[k]
                             Pos = Etiq.find("^")
                             if (Pos != -1):
@@ -533,6 +534,23 @@ while(modActual != None):
                             #l += 1
                             k = k + 1
                         if (traduccion):
+=======
+
+                            if ((etiqueta2[k].find("*") != -1 )):
+                                print ('entro al else')
+                                traduccion.insert(k, etiqueta2[k])
+                                print (etiqueta2[k].find("*"))
+                                k= k+1
+                            else:
+                                print (etiqueta2[k].find("*"))
+                                print ('entro al if')
+                                print (Auxiliar.obtenerNombre())
+                                traduccion.insert(k, Auxiliar.obtenerNombre())
+                                k = k + 1
+                                #print (Auxiliar.obtenerNombre())
+                        #print(traduccion)
+                        if traduccion:
+>>>>>>> a8b3ccf4836b340c38c18cd702a2b0fbf43e6974
                             ptraducido.append(traduccion)
                     DicDef.agregar(modActual.obtenerSec(), modActual.obtenerPatron(), modActual.obtenerId(),
                                    modActual.obtenerRegla(), ptraducido, Equivalencia[i])

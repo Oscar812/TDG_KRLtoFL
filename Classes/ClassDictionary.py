@@ -8,12 +8,18 @@ class Nodo:
             self.Id = args[2]
             self.Regla = args[3]
             self.Etiqueta = args[4]
+            self.Equivalencia = args[5]
+            self.EqMod = args[6]
+            self.Transf = []
         else:
             self.Secuencia = ""
             self.Patron = []
             self.Id = []
             self.Regla = ""
             self.Etiqueta= []
+            self.Equivalencia = []
+            self.EqMod = []
+            self.Transf = []
         self.siguiente = None
 
 
@@ -29,17 +35,35 @@ class Nodo:
     def setEtiqueta(self, Etiqueta):
         self.Etiqueta.extend([Etiqueta])
 
+    def setTransf(self, Transf):
+        self.Transf.append(Transf)
+
+    def setEqMod(self, EqMod):
+        self.EqMod.extend([EqMod])
+
+    def setEquivalencia(self, Equivalencia):
+        self.Equivalencia.extend([Equivalencia])
+
     def setId(self, Id):
         self.Id.extend([Id])
 
     def obtenerSec(self):
         return self.Secuencia
 
+    def obtenerTransf(self):
+        return self.Transf
+
     def obtenerPatron(self):
         return self.Patron
 
     def obtenerEtiqueta(self):
         return self.Etiqueta
+
+    def obtenerEqMod(self):
+        return self.EqMod
+
+    def obtenerEquivalencia(self):
+        return self.Equivalencia
 
     def obtenerId(self):
         return self.Id
@@ -72,13 +96,8 @@ class ListaDictionary:
     def estaVacia(self):
         return self.cabeza == None
 
-    def agregar(self, item1, item2, item3, item4,item5):
-        temp = Nodo(item1, item2, item3,item4,item5)
-        #temp.asignarDato(item1, item2, item3,item4)
-        #temp.mostrarNodo()
-        #print("Estoy en agregar")
-        #print("guarde: ")
-        #temp.mostrarNodo()
+    def agregar(self, item1, item2, item3, item4,item5, item6, item7):
+        temp = Nodo(item1, item2, item3, item4, item5, item6, item7)
         temp.asignarSiguiente(self.cabeza)
         self.cabeza = temp
 
@@ -92,6 +111,9 @@ class ListaDictionary:
             print("Id: " + str(actual.obtenerId()))
             print("Regla: " + str(actual.obtenerRegla()))
             print("Etiqueta: " + str(actual.obtenerEtiqueta()))
+            print("Equivalencia: " + str(actual.obtenerEquivalencia()))
+            print("Listas Asoc: "+str(actual.obtenerEqMod()))
+            print("Transformación "+str(actual.obtenerTransf()))
 
             #print(actual.obtenerId())
             actual = actual.obtenerSiguiente()

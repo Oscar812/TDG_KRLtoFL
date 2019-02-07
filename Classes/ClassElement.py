@@ -166,7 +166,7 @@ class ElementosXML:
                             Sec += 1
                         Nodo=Dic[i].cabeza
                         #Etiquetas= self.asignarEtiqueta(Lista, Regla[i])
-                        DicDef.agregar(Nodo.obtenerSec(),Nodo.obtenerPatron(),Nodo.obtenerId(),Regla[i], "")
+                        DicDef.agregar(Nodo.obtenerSec(),Nodo.obtenerPatron(),Nodo.obtenerId(),Regla[i], "","","")
             else:
                 print("Entre por el modelo")
                 Dic.append(ClassDictionary.ListaDictionary())
@@ -176,9 +176,8 @@ class ElementosXML:
                 DicDef=Dic[0]
             return (DicDef)
 
-    def asignarEtiqueta(self, Lista, Dic):
+    def asignarEtiqueta(self, Lista, Dic, Tipo):
         DicActual=Dic.cabeza
-
         DicDef = ClassDictionary.ListaDictionary()
         #dicActual = Dic.cabeza
         idRegla=0
@@ -187,20 +186,44 @@ class ElementosXML:
             idRegla=DicActual.obtenerRegla()
             actual = Lista.cabeza
             while(actual != None):
-                if actual.obtenerParentName()=="Target" and actual.obtenerRegla() == idRegla:
+                if actual.obtenerParentName()=="Target" and actual.obtenerRegla() == idRegla and Tipo=="Regla":
                     objetos2=[]
                     Ids= []
+                    IdPatron = []
                     objetos =""
                     objetos=(actual.obtenerNombre())
                     objetos2= objetos.split(" ")
                     Ids.append(actual.obtenerId())
                     etiqueta= [objetos2,Ids]
+                    IdPatron = DicActual.obtenerId().copy()
+                    Equivalencia = []
+                    for i in range(len(IdPatron)):
+                        Equivalencia.append(Lista.Buscar(IdPatron[i]).obtenerNombre())
+                    LAsoc={"":""}
+                    self.AsignarPosDat(etiqueta[0], Equivalencia, LAsoc)
                     DicDef.agregar(DicActual.obtenerSec(), DicActual.obtenerPatron(), DicActual.obtenerId(),
-                                   DicActual.obtenerRegla(), etiqueta)
+                                   DicActual.obtenerRegla(), etiqueta, Equivalencia, LAsoc)
+                if actual.obtenerParentName()=="Source" and actual.obtenerRegla() == idRegla and Tipo=="ReglaFL":
+                    objetos2=[]
+                    Ids= []
+                    IdPatron = []
+                    objetos =""
+                    objetos=(actual.obtenerNombre())
+                    objetos2= objetos.split(" ")
+                    Ids.append(actual.obtenerId())
+                    etiqueta= [objetos2,Ids]
+                    IdPatron = DicActual.obtenerId().copy()
+                    Equivalencia = []
+                    Equivalencia = self.ObtenerEqReglaFL(idRegla,Lista)
+                    #for i in range(len(IdPatron)):
+                    #    Equivalencia.append(Lista.Buscar(IdPatron[i]).obtenerNombre())
+                    LAsoc={"":""}
+                    #LAsoc = self.AsignarPosDat(etiqueta[0], Equivalencia)
+                    #LAsoc=self.AsignarPosDat(etiqueta[0], Equivalencia)
+                    DicDef.agregar(DicActual.obtenerSec(), DicActual.obtenerPatron(), DicActual.obtenerId(),
+                                   DicActual.obtenerRegla(), etiqueta, Equivalencia, LAsoc)
                 actual = actual.obtenerSiguiente()
             DicActual= DicActual.obtenerSiguiente()
-
-
         return DicDef
 
     def Patrones2(self, Id, Lista, Dic, Ind):
@@ -214,7 +237,7 @@ class ElementosXML:
                     Ids= []
                     Patron.append(actual.obtenerTipo())
                     Ids.append(actual.obtenerId())
-                    Dic.agregar(Sec,Patron,Ids,Id,"")
+                    Dic.agregar(Sec,Patron,Ids,Id,"","","")
                 actual = actual.obtenerSiguiente()
         else:
             actual = ClassList.Nodo()
@@ -225,7 +248,7 @@ class ElementosXML:
                 Regla = []
                 Patron.append(actual.obtenerTipo())
                 Ids.append(actual.obtenerId())
-                Dic.agregar(Sec,Patron,Ids,Regla,"")
+                Dic.agregar(Sec,Patron,Ids,Regla,"","","")
                 actual = actual.obtenerSiguiente()
 
 
@@ -248,7 +271,7 @@ class ElementosXML:
                 while(New):
                     Patron.insert(0,New[0][0])
                     Ids.insert(0,New[0][1])
-                    Dic.agregar(len(Patron), Patron, Ids,"","")
+                    Dic.agregar(len(Patron), Patron, Ids,"","","","")
                     sw = 1
                     Patron = (DicActual.obtenerPatron().copy())
                     Ids = (DicActual.obtenerId().copy())
@@ -263,7 +286,7 @@ class ElementosXML:
                 while (New):
                     Patron.append(New[0][0])
                     Ids.append(New[0][1])
-                    Dic.agregar(len(Patron), Patron, Ids,"", "")
+                    Dic.agregar(len(Patron), Patron, Ids,"", "", "","")
                     sw = 1
                     Patron = (DicActual.obtenerPatron().copy())
                     Ids = (DicActual.obtenerId().copy())
@@ -335,6 +358,29 @@ class ElementosXML:
         else:
             return False
 
+    def AsignarPosDat(self, Etiq, Patron, LAsoc):
+
+        traduccion = []
+        for i in range(len(Etiq)):
+            Et = Etiq[i]
+            Pos = Et.find("^")
+            Et2 = Et[Pos + 1:len(Etiq)]
+            Pos2 = Et2.find("^") + Pos+1
+            Long = (Pos2+1) - (Pos+1)
+            if (Pos != -1):
+                Dat = Et[Pos+1:Long]
+                sw=0
+                j=0
+                while(sw==0):
+                    if (Patron[j].find(Dat)!= -1):
+                        #LAsoc.append({Dat: j})
+                        LAsoc[Dat]= j
+                        sw=1
+                    j+=1
+
+            #return  LAsoc
+
+
     def buscarReglaModelo(self, Dic, Modelo, ListaModelo):
         Auxiliar = ClassList.Nodo("", "", "", "")
         traduccion=[]
@@ -343,46 +389,156 @@ class ElementosXML:
         modActual= Modelo.cabeza
         regla=[]
         etiqueta=[]
+        IdReg=[]
+        EqMod=[]
         while(dicActual != None):
             regla.append(dicActual.obtenerPatron().copy())
-            etiqueta.append(dicActual.obtenerEtiqueta().copy())
+            IdReg.append(dicActual.obtenerId().copy())
+            etiqueta.append(dicActual.obtenerEtiqueta())
+            EqMod.append(dicActual.obtenerEqMod())
+            #Equivalencia.append(dicActual.obtenerEquivalencia().copy())
             dicActual=dicActual.obtenerSiguiente()
 
         while(modActual != None):
             ptraducido = []
             for i in range(len(regla)):
-
                 if (modActual.obtenerPatron() == regla[i]):
-                    etiqueta2=etiqueta[i][0].copy()
+                    #etiqueta2=etiqueta[i][0].copy()
                     k = 0
-                    for j in range (len(regla[i])):
-
-                        traduccion = []
-                        Auxiliar = ListaModelo.Buscar(modActual.obtenerId()[j])
-
-
-                        if (Auxiliar.obtenerNombre() != ""):
-                            if ((etiqueta2[k].find("*"))):
-
-                                traduccion.insert(k,Auxiliar.obtenerNombre())
-                                k= k+1
-                            else:
-                                traduccion.insert(k,etiqueta2[k])
-                                k = k + 1
-                                #print (Auxiliar.obtenerNombre())
-                        #print(traduccion)
-                        if traduccion:
-                            ptraducido.append(traduccion)
+                    l = 0
+                    Equivalencia = []
+                    for j in range(len(regla[i])):
+                        Equivalencia.append(ListaModelo.Buscar(modActual.obtenerId()[j]).obtenerNombre())
                     DicDef.agregar(modActual.obtenerSec(), modActual.obtenerPatron(), modActual.obtenerId(),
-                                   modActual.obtenerRegla(), ptraducido)
+                                   IdReg[i], etiqueta[i], Equivalencia,EqMod[i])
                     #print(ptraducido)
             modActual=modActual.obtenerSiguiente()
         return (DicDef)
 
+    def ObtenerTrans(self, DicReg, DicMod):
+        DicDef = ClassDictionary.ListaDictionary()
+        dicActual = DicReg.cabeza
+        modActual = DicMod.cabeza
+        regla = []
+        etiqueta = []
+        IdReg = []
+        EqMod = ""
+        Equivalencia=[]
+        while (dicActual != None):
+            regla.append(dicActual.obtenerPatron().copy())
+            IdReg.append(dicActual.obtenerId().copy())
+            etiqueta.append(dicActual.obtenerEtiqueta().copy())
+            #EqMod.append(dicActual.obtenerEqMod().copy())
+            Equivalencia.append(dicActual.obtenerEquivalencia().copy())
+            dicActual = dicActual.obtenerSiguiente()
+
+        while (modActual != None):
+            #ptraducido = []
+            for i in range(len(regla)):
+                Etiq =modActual.obtenerEtiqueta()
+                ptraducido = []
+                if (Etiq[0] == etiqueta[0][i]):
+                    result=[]
+                    for j in range(len(Equivalencia[i])):
+                        cont = Equivalencia[i][j]
+                        sw = 0
+                        while (sw == 0):
+                            Pos = cont.find("^")
+                            cont2 = cont[Pos + 1:len(cont)]
+                            Pos2 = cont2.find("^") + Pos
+                            Long = (Pos2) - (Pos)
+                            if (Pos != -1):
+                                Dat = cont2[0:Long]
+                                EqMod = modActual.obtenerEqMod().copy()
+                                # print("Valor: "+ str(EqMod[Dat]))
+                                # print("Valor: " + str(modActual.obtenerEquivalencia().copy()[EqMod[Dat]]))
+                                ptraducido.append(modActual.obtenerEquivalencia().copy()[EqMod[Dat]])
+                            else:
+                                sw = 1
+                                ptraducido.append(cont)
+                            cont = cont2[Long + 1:len(cont2)]
+                    '''
+                    for j in range(len(etiqueta[0][i])):
+                        cont=etiqueta[0][i][j]
+                        sw=0
+                        while(sw==0):
+                            Pos=cont.find("^")
+                            cont2 = cont[Pos+1:len(cont)]
+                            Pos2 = cont2.find("^") + Pos
+                            Long = (Pos2) - (Pos)
+                            if (Pos!=-1):
+                                Dat = cont2[0:Long]
+                                EqMod =modActual.obtenerEqMod().copy()
+                                #print("Valor: "+ str(EqMod[Dat]))
+                                #print("Valor: " + str(modActual.obtenerEquivalencia().copy()[EqMod[Dat]]))
+                                ptraducido.append(modActual.obtenerEquivalencia().copy()[EqMod[Dat]])
+                            else:
+                                sw=1
+                                ptraducido.append(cont)
+                            cont=cont2[Long+1:len(cont2)]'''
+                    if (ptraducido):
+                        modActual.setTransf(ptraducido)
+                        print("Encontré una traducción")
+            modActual = modActual.obtenerSiguiente()
+
+    def ObtenerEqReglaFL(self, idRegla, Lista):
+        objetos=[]
+        Actual = Lista.cabeza
+        encontrado = False
+        while (Actual!=None and not encontrado):
+            if Actual.obtenerParentName() == "Target" and Actual.obtenerRegla() == idRegla:
+                Data = Actual.obtenerNombre()
+                objetos = Data.split(" ")
+                encontrado = True
+            Actual = Actual.obtenerSiguiente()
+        return objetos
 
 
 
-
+'''
+copia de lo hecho para Etiqueta modelo
+while(modActual != None):
+            ptraducido = []
+            for i in range(len(regla)):
+                if (modActual.obtenerPatron() == regla[i]):
+                    etiqueta2=etiqueta[i][0].copy()
+                    k = 0
+                    l = 0
+                    for j in range(len(regla[i])):
+                        traduccion = []
+                        Auxiliar = ListaModelo.Buscar(modActual.obtenerId()[j])
+                        if (Auxiliar.obtenerNombre() != ""):
+                            Etiq = etiqueta2[k]
+                            Pos = Etiq.find("^")
+                            if (Pos != -1):
+                                if (Pos==0):
+                                    #traduccion.insert(k,Auxiliar.obtenerNombre())
+                                    traduccion.append(Auxiliar.obtenerNombre())
+                                else:
+                                    Val=Auxiliar.obtenerNombre()
+                                    #traduccion.insert(k, Etiq[0:(Pos-1)])
+                                    traduccion.append(Etiq[0:Pos])
+                                    #k+=1
+                                    #traduccion.insert(k, Val)
+                                    traduccion.append(Val)
+                                Etiq2 = Etiq[Pos + 1:len(Etiq)]
+                                Pos2 = Etiq2.find("^") + (Pos + 1)
+                                if (Pos2 != -1) and Pos2 < (len(Etiq) - 1):
+                                    # k+=1
+                                    # traduccion.insert(k, Etiq[Pos2+1:(len(Etiq)-1)])
+                                    traduccion.append(Etiq[Pos2+1:None])
+                            else:
+                                #traduccion.insert(k,etiqueta2[k])
+                                traduccion.append(etiqueta2[k])
+                            #l += 1
+                            k = k + 1
+                        if (traduccion):
+                            ptraducido.append(traduccion)
+                    DicDef.agregar(modActual.obtenerSec(), modActual.obtenerPatron(), modActual.obtenerId(),
+                                   modActual.obtenerRegla(), ptraducido, Equivalencia[i])
+                    #print(ptraducido)
+            modActual=modActual.obtenerSiguiente()
+'''
 
 
 

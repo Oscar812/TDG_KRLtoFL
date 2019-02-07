@@ -362,12 +362,17 @@ class ElementosXML:
 
 
                         if (Auxiliar.obtenerNombre() != ""):
-                            if ((etiqueta2[k].find("*"))):
 
-                                traduccion.insert(k,Auxiliar.obtenerNombre())
+                            if ((etiqueta2[k].find("*") != -1 )):
+                                print ('entro al else')
+                                traduccion.insert(k, etiqueta2[k])
+                                print (etiqueta2[k].find("*"))
                                 k= k+1
                             else:
-                                traduccion.insert(k,etiqueta2[k])
+                                print (etiqueta2[k].find("*"))
+                                print ('entro al if')
+                                print (Auxiliar.obtenerNombre())
+                                traduccion.insert(k, Auxiliar.obtenerNombre())
                                 k = k + 1
                                 #print (Auxiliar.obtenerNombre())
                         #print(traduccion)

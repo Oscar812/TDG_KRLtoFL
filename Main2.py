@@ -20,7 +20,7 @@ def deflate_and_base64_encode( string_val ):
 from Classes import ClassElement as Elements
 
 Lista = ClassList.ListaNoOrdenada()
-file = "TRANSFORMACION2.xml"
+file = "TRANSFORMACION.xml"
 Elementos = Elements.ElementosXML()
 Lista= Elementos.ObtenerElementos(file,Lista)
 Elementos.AsigConexion(Lista)
@@ -30,7 +30,7 @@ DicMod = ClassDictionary.ListaDictionary()
 DicFL = ClassDictionary.ListaDictionary()
 #Lista.Imprimir()
 file2 = "Modelo_prueba.xml"
-file3 = "PruebaFL2.xml"
+file3 = "PruebaFL.xml"
 ListaFL = ClassList.ListaNoOrdenada()
 ListaFL= Elementos.ObtenerElementos(file3,ListaFL)
 Elementos.AsigConexion(ListaFL)

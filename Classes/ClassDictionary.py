@@ -36,7 +36,7 @@ class Nodo:
         self.Etiqueta.extend([Etiqueta])
 
     def setTransf(self, Transf):
-        self.Transf.append(Transf)
+        self.Transf.extend([Transf])
 
     def setEqMod(self, EqMod):
         self.EqMod.extend([EqMod])
@@ -103,18 +103,32 @@ class ListaDictionary:
 
     def Imprimir(self):
         actual = self.cabeza
+
         while actual != None:
-            print("Secuencia: "+ str(actual.obtenerSec()))
+            cadena = ""
+            #print("Secuencia: "+ str(actual.obtenerSec()))
             #print(actual.obtenerSec())
             print("Patron: " + str(actual.obtenerPatron()))
             #print(actual.obtenerPatron())
-            print("Id: " + str(actual.obtenerId()))
-            print("Regla: " + str(actual.obtenerRegla()))
-            print("Etiqueta: " + str(actual.obtenerEtiqueta()))
-            print("Equivalencia: " + str(actual.obtenerEquivalencia()))
-            print("Listas Asoc: "+str(actual.obtenerEqMod()))
-            print("Transformación "+str(actual.obtenerTransf()))
+            #print("Id: " + str(actual.obtenerId()))
+            #print("Regla: " + str(actual.obtenerRegla()))
+            #print("Etiqueta: " + str(actual.obtenerEtiqueta()))
+            #print("Equivalencia: " + str(actual.obtenerEquivalencia()))
+            #print("Listas Asoc: "+str(actual.obtenerEqMod()))
+            cadena=actual.obtenerTransf()
+            hola= str(actual.obtenerTransf()).strip("[]")
+            hola= hola.replace(",", "")
+            hola = hola.replace("'", "")
+            print (hola)
 
+            #print(":"+str(len(cadena)))
+            #print("Transformación "+str(cadena))
+            #trans =actual.obtenerTransf()
+
+            #for i in range(len(trans)):
+            #    cadena = cadena + str(trans[0:2])
+            #    print(cadena)
+            #print("Transformación: "+str(cadena))
             #print(actual.obtenerId())
             actual = actual.obtenerSiguiente()
 

@@ -99,16 +99,7 @@ class ElementosXML:
             print("Relación")
             print(actual.obtenerRelacion())
             print("Fin Relación")
-            '''
-            print("Hijos")
-            print(actual.obtenerHijos)
-            print("Fin Hijos")
-            print("_______________________________")
-            '''
-            # validar(actual.obtenerTipo(), actual.obtenerParent)
             actual = actual.obtenerSiguiente()
-
-        #Nodo= ClassList.Nodo('', '', '', '', '', '')
         List_hijos = []
         actual = Lista.cabeza
         while actual != None:
@@ -168,7 +159,6 @@ class ElementosXML:
                         #Etiquetas= self.asignarEtiqueta(Lista, Regla[i])
                         DicDef.agregar(Nodo.obtenerSec(),Nodo.obtenerPatron(),Nodo.obtenerId(),Regla[i], "","","")
             else:
-                print("Entre por el modelo")
                 Dic.append(ClassDictionary.ListaDictionary())
                 self.Patrones2("", Lista, Dic[0], Tipo)
                 while (self.obtenerDatos2(Lista, Dic[0])):
@@ -428,7 +418,6 @@ class ElementosXML:
             regla.append(dicActual.obtenerPatron().copy())
             IdReg.append(dicActual.obtenerId().copy())
             etiqueta.append(dicActual.obtenerEtiqueta().copy())
-            #EqMod.append(dicActual.obtenerEqMod().copy())
             Equivalencia.append(dicActual.obtenerEquivalencia().copy())
             dicActual = dicActual.obtenerSiguiente()
 

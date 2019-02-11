@@ -19,53 +19,39 @@ def deflate_and_base64_encode( string_val ):
     return base64.b64encode( compressed_string )
 from Classes import ClassElement as Elements
 
-Lista = ClassList.ListaNoOrdenada()
+
+#Declaracion de insumos a utilizar
 file = "TRANSFORMACION.xml"
+file2 = "Modelo_prueba.xml"
+file3 = "PruebaFL.xml"
+#Clases LISTA
+Lista = ClassList.ListaNoOrdenada()
+ListaFL = ClassList.ListaNoOrdenada()
+ListaModelo = ClassList.ListaNoOrdenada()
+#Obtencion de elemenos de cada XML
 Elementos = Elements.ElementosXML()
+
 Lista= Elementos.ObtenerElementos(file,Lista)
 Elementos.AsigConexion(Lista)
 Elementos.AsigRegla(Lista)
 DicReg = ClassDictionary.ListaDictionary()
 DicMod = ClassDictionary.ListaDictionary()
 DicFL = ClassDictionary.ListaDictionary()
-#Lista.Imprimir()
-file2 = "Modelo_prueba.xml"
-file3 = "PruebaFL.xml"
-ListaFL = ClassList.ListaNoOrdenada()
 ListaFL= Elementos.ObtenerElementos(file3,ListaFL)
 Elementos.AsigConexion(ListaFL)
 Elementos.AsigRegla(ListaFL)
-#ListaFL.Imprimir()
-
-ListaModelo = ClassList.ListaNoOrdenada()
 ListaModelo = Elementos.ObtenerElementos(file2,ListaModelo)
 Elementos.AsigConexion(ListaModelo)
 Elementos.AsigRegla(ListaModelo)
-#print("__________Diccionario Modelo_______________")
-#Diccionario.crearDiccionarioModelo(ListaModelo)
-#print("__________Modelo_______________")
-#ListaModelo.Imprimir()
-#print("__________Diccionario Reglas_______________")
 DicReg=Elementos.LLenarDic(Lista,"Regla")
 Elementos.LLenarDic(Lista,"Regla")
 DicReg= Elementos.asignarEtiqueta(Lista, DicReg, "Regla")
-#DicReg= Elementos.asignarEtiqueta(Lista, DicReg)
-#DicReg.Imprimir()
-#print("__________Diccionario Modelo_______________")
 DicMod=Elementos.LLenarDic(ListaModelo,"Modelo")
 DicFL=Elementos.LLenarDic(ListaFL,"Regla")
 DicFL= Elementos.asignarEtiqueta(ListaFL, DicFL, "ReglaFL")
-#DicFL.Imprimir()
-#DicMod.Imprimir()
 DicMod=Elementos.buscarReglaModelo(DicReg, DicMod, ListaModelo)
-#DicMod=Elementos.buscarReglaModelo(DicFL, DicMod,ListaModelo)
-#DicMod.Imprimir()
+#Obtencion de la transformacion al FL
 Elementos.ObtenerTrans(DicFL,DicMod)
-#DicFL=Elementos.LLenarDic(ListaFL,"Regla")
-#DicFL= Elementos.asignarEtiqueta(ListaFL, DicFL)
-#DicFL.Imprimir()
-#DicMod.Imprimir()
-#DicMod=Elementos.buscarReglaModelo(DicReg, DicMod,ListaModelo)
 DicMod.Imprimir()
 
 

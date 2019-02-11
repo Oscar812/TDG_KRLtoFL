@@ -437,34 +437,19 @@ class ElementosXML:
                             Pos2 = cont2.find("^") + Pos
                             Long = (Pos2) - (Pos)
                             if (Pos != -1):
+                                if (Pos > 0):
+                                    Dat = cont[0:Pos]
+                                    ptraducido.append(Dat)
                                 Dat = cont2[0:Long]
                                 EqMod = modActual.obtenerEqMod().copy()
                                 # print("Valor: "+ str(EqMod[Dat]))
                                 # print("Valor: " + str(modActual.obtenerEquivalencia().copy()[EqMod[Dat]]))
                                 ptraducido.append(modActual.obtenerEquivalencia().copy()[EqMod[Dat]])
+
                             else:
                                 sw = 1
                                 ptraducido.append(cont)
                             cont = cont2[Long + 1:len(cont2)]
-                    '''
-                    for j in range(len(etiqueta[0][i])):
-                        cont=etiqueta[0][i][j]
-                        sw=0
-                        while(sw==0):
-                            Pos=cont.find("^")
-                            cont2 = cont[Pos+1:len(cont)]
-                            Pos2 = cont2.find("^") + Pos
-                            Long = (Pos2) - (Pos)
-                            if (Pos!=-1):
-                                Dat = cont2[0:Long]
-                                EqMod =modActual.obtenerEqMod().copy()
-                                #print("Valor: "+ str(EqMod[Dat]))
-                                #print("Valor: " + str(modActual.obtenerEquivalencia().copy()[EqMod[Dat]]))
-                                ptraducido.append(modActual.obtenerEquivalencia().copy()[EqMod[Dat]])
-                            else:
-                                sw=1
-                                ptraducido.append(cont)
-                            cont=cont2[Long+1:len(cont2)]'''
                     if (ptraducido):
                         modActual.setTransf(ptraducido)
                         #print("Encontré una traducción")
@@ -481,178 +466,3 @@ class ElementosXML:
                 encontrado = True
             Actual = Actual.obtenerSiguiente()
         return objetos
-
-
-
-'''
-copia de lo hecho para Etiqueta modelo
-while(modActual != None):
-            ptraducido = []
-            for i in range(len(regla)):
-                if (modActual.obtenerPatron() == regla[i]):
-                    etiqueta2=etiqueta[i][0].copy()
-                    k = 0
-                    l = 0
-                    for j in range(len(regla[i])):
-                        traduccion = []
-                        Auxiliar = ListaModelo.Buscar(modActual.obtenerId()[j])
-                        if (Auxiliar.obtenerNombre() != ""):
-<<<<<<< HEAD
-                            Etiq = etiqueta2[k]
-                            Pos = Etiq.find("^")
-                            if (Pos != -1):
-                                if (Pos==0):
-                                    #traduccion.insert(k,Auxiliar.obtenerNombre())
-                                    traduccion.append(Auxiliar.obtenerNombre())
-                                else:
-                                    Val=Auxiliar.obtenerNombre()
-                                    #traduccion.insert(k, Etiq[0:(Pos-1)])
-                                    traduccion.append(Etiq[0:Pos])
-                                    #k+=1
-                                    #traduccion.insert(k, Val)
-                                    traduccion.append(Val)
-                                Etiq2 = Etiq[Pos + 1:len(Etiq)]
-                                Pos2 = Etiq2.find("^") + (Pos + 1)
-                                if (Pos2 != -1) and Pos2 < (len(Etiq) - 1):
-                                    # k+=1
-                                    # traduccion.insert(k, Etiq[Pos2+1:(len(Etiq)-1)])
-                                    traduccion.append(Etiq[Pos2+1:None])
-                            else:
-                                #traduccion.insert(k,etiqueta2[k])
-                                traduccion.append(etiqueta2[k])
-                            #l += 1
-                            k = k + 1
-                        if (traduccion):
-=======
-
-                            if ((etiqueta2[k].find("*") != -1 )):
-                                print ('entro al else')
-                                traduccion.insert(k, etiqueta2[k])
-                                print (etiqueta2[k].find("*"))
-                                k= k+1
-                            else:
-                                print (etiqueta2[k].find("*"))
-                                print ('entro al if')
-                                print (Auxiliar.obtenerNombre())
-                                traduccion.insert(k, Auxiliar.obtenerNombre())
-                                k = k + 1
-                                #print (Auxiliar.obtenerNombre())
-                        #print(traduccion)
-                        if traduccion:
->>>>>>> a8b3ccf4836b340c38c18cd702a2b0fbf43e6974
-                            ptraducido.append(traduccion)
-                    DicDef.agregar(modActual.obtenerSec(), modActual.obtenerPatron(), modActual.obtenerId(),
-                                   modActual.obtenerRegla(), ptraducido, Equivalencia[i])
-                    #print(ptraducido)
-            modActual=modActual.obtenerSiguiente()
-'''
-
-
-
-
-'''
-    def obtenerDatos(self, Lista, Dic, Sec):
-
-        DicActual = Dic.cabeza
-        Elementos = []
-        ids = []
-        while DicActual != None:
-            actual = Lista.cabeza
-            cont = 1
-            Elementos = Dic.obtenerPatron()
-            ids = Dic.obtenerId()
-            while actual != None:
-                for i in len(ids):
-                    if (actual.obtenerId() == ids[i]):
-                        if (actual.obtenerConexion()):
-                            conexion = []
-                            for j in len(actual.obtenerConexion()):
-                                conexion = actual.obtenerConexion()[i]
-                                if (conexion[3] == "Source"):
-                                    Elementos.insert(i + 1, conexion[2])
-                                    ids.insert(i + 1, conexion[1])
-                                    cont += 1
-                                if (conexion[3] == "Target"):
-                                    Elementos.insert(i - 1, conexion[2])
-                                    ids.insert(i - 1, conexion[1])
-                                    cont += 1
-                        if (actual.obtenerRelacion()):
-                            relacion = []
-                            relacion = actual.obtenerRelacion()
-                            ##source
-                            if relacion[0]:
-                                ids.insert(i + 1)
-                            if relacion[1]:
-                                ids.insert(i - 1)
-**************************************************************************************************************
-
-
-        if Objeto.obtenerRelacion():
-            print("Tiene Relacion")
-            Relacion = []
-            Relacion = Objeto.obtenerRelacion()
-            print(Relacion[0])
-            self.patrones(Relacion[0], ListaModelo, ListaRegla)
-        else:
-            #print("no tiene relacion")
-            if Objeto.obtenerConexion():
-                print("Tiene Conexion")
-                Conexion=[]
-                Conexion = Objeto.obtenerConexion()
-                if Conexion[3]=="Target":
-                    self.patrones(Conexion[1],ListaModelo,ListaRegla)
-                else Conexion[3]=="Source":
-                    agregardiccionar
-                    enciendobandera
-            else:
-                if Objeto.obtenerHijos() and Objeto.obtenerParentName()=="Source":
-                    print("tiene hijos")
-                    Hijos = []
-                    Hijos = Objeto.obtenerHijos()
-                    #self.PatronModelo(ListaModelo, Objeto)
-
-        if Objeto:
-            aqui
-
-    def Patrones(self, Objeto, ListaModelo, ListaRegla):
-        print("ID: "+Objeto.obtenerId())
-        print("Tipo: " + Objeto.obtenerTipo())
-
-        if Objeto.obtenerRelacion():
-            print("Tiene Relacion")
-            Relacion = []
-            Relacion = Objeto.obtenerRelacion()
-            print(Relacion[0])
-            self.patrones(Relacion[0], ListaModelo, ListaRegla)
-        else:
-            #print("no tiene relacion")
-            if Objeto.obtenerConexion():
-                print("Tiene Conexion")
-                Conexion=[]
-                Conexion = Objeto.obtenerConexion()
-                if Conexion[3]=="Target":
-                    self.patrones(Conexion[1],ListaModelo,ListaRegla)
-                else Conexion[3]=="Source":
-                    agregardiccionar
-                    enciendobandera
-            else:
-                if Objeto.obtenerHijos() and Objeto.obtenerParentName()=="Source":
-                    print("tiene hijos")
-                    Hijos = []
-                    Hijos = Objeto.obtenerHijos()
-                    #self.PatronModelo(ListaModelo, Objeto)
-
-        if Objeto
-            
-
-
-    def PatronModelo(self, ListaModelo, Objeto):
-        actual = ListaModelo.SetCabeza
-        print("no tiene relacion estoy en el patronmodelo")
-        #while actual != None:
-            #if actual.obtenerTipo() == Objeto.obtenerTipo():
-            #print("Encontré el tipo")
-        '''
-
-
-

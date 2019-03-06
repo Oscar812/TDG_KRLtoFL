@@ -106,9 +106,9 @@ class ListaDictionary:
 
         while actual != None:
             cadena = ""
-            #print("Secuencia: "+ str(actual.obtenerSec()))
-            #print(actual.obtenerSec())
             print("Patron: " + str(actual.obtenerPatron()))
+            #print(actual.obtenerSec())
+            #print("Patron: " + str(actual.obtenerPatron()))
             #print(actual.obtenerPatron())
             #print("Id: " + str(actual.obtenerId()))
             #print("Regla: " + str(actual.obtenerRegla()))

@@ -22,8 +22,8 @@ from Classes import ClassElement as Elements
 
 #Declaracion de insumos a utilizar
 file = "TRANSFORMACION.xml"
-file2 = "Modelo_prueba.xml"
-file3 = "PruebaFL.xml"
+file2 = "matrimonio2.xml"
+file3 = "PruebaFL_EP.xml"
 #Clases LISTA
 Lista = ClassList.ListaNoOrdenada()
 ListaFL = ClassList.ListaNoOrdenada()
@@ -34,6 +34,8 @@ Elementos = Elements.ElementosXML()
 Lista= Elementos.ObtenerElementos(file,Lista)
 Elementos.AsigConexion(Lista)
 Elementos.AsigRegla(Lista)
+
+
 DicReg = ClassDictionary.ListaDictionary()
 DicMod = ClassDictionary.ListaDictionary()
 DicFL = ClassDictionary.ListaDictionary()
@@ -41,15 +43,20 @@ ListaFL= Elementos.ObtenerElementos(file3,ListaFL)
 Elementos.AsigConexion(ListaFL)
 Elementos.AsigRegla(ListaFL)
 ListaModelo = Elementos.ObtenerElementos(file2,ListaModelo)
+
 Elementos.AsigConexion(ListaModelo)
 Elementos.AsigRegla(ListaModelo)
 DicReg=Elementos.LLenarDic(Lista,"Regla")
 Elementos.LLenarDic(Lista,"Regla")
 DicReg= Elementos.asignarEtiqueta(Lista, DicReg, "Regla")
 DicMod=Elementos.LLenarDic(ListaModelo,"Modelo")
+
+
+
 DicFL=Elementos.LLenarDic(ListaFL,"Regla")
 DicFL= Elementos.asignarEtiqueta(ListaFL, DicFL, "ReglaFL")
 DicMod=Elementos.buscarReglaModelo(DicReg, DicMod, ListaModelo)
+#DicMod.Imprimir()
 #Obtencion de la transformacion al FL
 Elementos.ObtenerTrans(DicFL,DicMod)
 DicMod.Imprimir()
